@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { fetchOddsData } from "@/lib/api";
+import { fetchOddsData } from "@/app/utils/api";
 import { query } from "@/lib/db";
 
 export async function POST() {
