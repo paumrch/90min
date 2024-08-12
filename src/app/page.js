@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import Link from "next/link";
 import {
   Activity,
@@ -17,7 +20,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-
 import {
   Table,
   TableBody,
@@ -29,71 +31,45 @@ import {
 
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
-
 import { Upcoming } from "@/components/upcoming";
 import { Results } from "@/components/results";
+import { SummarySection } from "@/components/summary-card";
+import { Prediction } from "@/components/prediction"; // Asegúrate de crear este componente
 
 export default function Dashboard() {
+  const [showPredictionSelector, setShowPredictionSelector] = useState(false);
+  const [predictionsUpdated, setPredictionsUpdated] = useState(false);
+
+  const handlePredictionsSave = (predictions) => {
+    // Guarda las predicciones en localStorage
+    localStorage.setItem("predictions", JSON.stringify(predictions));
+    setShowPredictionSelector(false);
+    setPredictionsUpdated(!predictionsUpdated); // Esto forzará una actualización en Upcoming
+  };
+
   return (
     <div className="flex min-h-screen w-full flex-col">
       <Navbar />
       <main className="flex-1 container mx-auto px-4 py-8 space-y-8">
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">
-                Ingresos totales
-              </CardTitle>
-              <DollarSign className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">$45,231.89</div>
-              <p className="text-xs text-muted-foreground">
-                +20.1% desde el mes pasado
-              </p>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">
-                Suscripciones
-              </CardTitle>
-              <Users className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">+2350</div>
-              <p className="text-xs text-muted-foreground">
-                +180.1% desde el mes pasado
-              </p>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Ventas</CardTitle>
-              <CreditCard className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">+12,234</div>
-              <p className="text-xs text-muted-foreground">
-                +19% desde el mes pasado
-              </p>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Activos ahora</CardTitle>
-              <Activity className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">+573</div>
-              <p className="text-xs text-muted-foreground">
-                +201 desde la última hora
-              </p>
-            </CardContent>
-          </Card>
+        <SummarySection />
+
+        <div className="flex justify-end mb-4">
+          <Button
+            onClick={() => setShowPredictionSelector(!showPredictionSelector)}
+          >
+            {showPredictionSelector
+              ? "Ocultar Selector"
+              : "Seleccionar Predicciones"}
+          </Button>
         </div>
+
+        {showPredictionSelector && (
+          <Prediction onPredictionsSave={handlePredictionsSave} />
+        )}
+
         <div className="grid gap-6 lg:grid-cols-2 xl:grid-cols-3">
-          <Upcoming />
+          <Upcoming key={predictionsUpdated} />{" "}
+          {/* La key forzará un re-render cuando cambie */}
           <Results />
         </div>
       </main>
