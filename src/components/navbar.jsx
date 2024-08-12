@@ -5,96 +5,70 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 
 export function Navbar() {
   return (
-    <header className="flex h-24 items-center gap-4 md:gap-8">
-      <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
-        <Link
-          href="#"
-          className="flex items-center gap-2 text-lg font-semibold md:text-base"
-        >
-          <Package2 className="h-6 w-6" />
-          <span>Acme Inc</span>
-        </Link>
-        <Link
-          href="#"
-          className="text-foreground transition-colors hover:text-foreground"
-        >
-          Dashboard
-        </Link>
-        <Link
-          href="#"
-          className="text-muted-foreground transition-colors hover:text-foreground"
-        >
-          Orders
-        </Link>
-        <Link
-          href="#"
-          className="text-muted-foreground transition-colors hover:text-foreground"
-        >
-          Products
-        </Link>
-        <Link
-          href="#"
-          className="text-muted-foreground transition-colors hover:text-foreground"
-        >
-          Customers
-        </Link>
-        <Link
-          href="#"
-          className="text-muted-foreground transition-colors hover:text-foreground"
-        >
-          Analytics
-        </Link>
-      </nav>
-      <Sheet>
-        <SheetTrigger asChild>
-          <Button
-            variant="outline"
-            size="icon"
-            className="shrink-0 md:hidden"
+    <header className="border-b">
+      <div className="container mx-auto px-4 py-4">
+        <div className="flex items-center justify-between">
+          <Link
+            href="#"
+            className="flex items-center gap-2 text-lg font-semibold"
           >
-            <Menu className="h-5 w-5" />
-            <span className="sr-only">Toggle navigation menu</span>
-          </Button>
-        </SheetTrigger>
-        <SheetContent side="left">
-          <nav className="grid gap-6 text-lg font-medium">
-            <Link
-              href="#"
-              className="flex items-center gap-2 text-lg font-semibold"
-            >
-              <Package2 className="h-6 w-6" />
-              <span>Acme Inc</span>
-            </Link>
-            <Link href="#" className="hover:text-foreground">
+            <Package2 className="h-6 w-6" />
+            <span>Acme Inc</span>
+          </Link>
+          <nav className="hidden md:flex md:items-center md:gap-6">
+            <Link href="#" className="text-sm font-medium text-foreground">
               Dashboard
             </Link>
-            <Link
-              href="#"
-              className="text-muted-foreground hover:text-foreground"
-            >
-              Orders
+            <Link href="#" className="text-sm font-medium text-muted-foreground hover:text-foreground">
+              Pedidos
             </Link>
-            <Link
-              href="#"
-              className="text-muted-foreground hover:text-foreground"
-            >
-              Products
+            <Link href="#" className="text-sm font-medium text-muted-foreground hover:text-foreground">
+              Productos
             </Link>
-            <Link
-              href="#"
-              className="text-muted-foreground hover:text-foreground"
-            >
-              Customers
+            <Link href="#" className="text-sm font-medium text-muted-foreground hover:text-foreground">
+              Clientes
             </Link>
-            <Link
-              href="#"
-              className="text-muted-foreground hover:text-foreground"
-            >
-              Analytics
+            <Link href="#" className="text-sm font-medium text-muted-foreground hover:text-foreground">
+              Analíticas
             </Link>
           </nav>
-        </SheetContent>
-      </Sheet>
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button
+                variant="outline"
+                size="icon"
+                className="md:hidden"
+              >
+                <Menu className="h-5 w-5" />
+                <span className="sr-only">Alternar menú de navegación</span>
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="left">
+              <nav className="grid gap-6 text-lg font-medium">
+                <Link href="#" className="flex items-center gap-2 text-lg font-semibold">
+                  <Package2 className="h-6 w-6" />
+                  <span>Acme Inc</span>
+                </Link>
+                <Link href="#" className="hover:text-foreground">
+                  Dashboard
+                </Link>
+                <Link href="#" className="text-muted-foreground hover:text-foreground">
+                  Pedidos
+                </Link>
+                <Link href="#" className="text-muted-foreground hover:text-foreground">
+                  Productos
+                </Link>
+                <Link href="#" className="text-muted-foreground hover:text-foreground">
+                  Clientes
+                </Link>
+                <Link href="#" className="text-muted-foreground hover:text-foreground">
+                  Analíticas
+                </Link>
+              </nav>
+            </SheetContent>
+          </Sheet>
+        </div>
+      </div>
     </header>
   )
 }

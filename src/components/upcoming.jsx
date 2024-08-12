@@ -18,19 +18,19 @@ import {
 } from "@/components/ui/table"
 import { Badge } from "@/components/ui/badge"
 
-export function NextEvents() {
+export function Upcoming() {
   return (
     <Card className="xl:col-span-2">
-      <CardHeader className="flex flex-row items-center">
-        <div className="grid gap-2">
-          <CardTitle>Next events</CardTitle>
+      <CardHeader className="flex flex-row items-center justify-between">
+        <div>
+          <CardTitle>Próximos eventos</CardTitle>
           <CardDescription>
-            Upcoming football matches and predictions.
+            Próximos partidos de fútbol y predicciones.
           </CardDescription>
         </div>
-        <Button asChild size="sm" className="ml-auto gap-1">
+        <Button asChild size="sm" className="gap-1">
           <Link href="#">
-            View All
+            Ver todos
             <ArrowUpRight className="h-4 w-4" />
           </Link>
         </Button>
@@ -39,32 +39,27 @@ export function NextEvents() {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead className="w-[40%]">Match</TableHead>
-              <TableHead className="hidden xl:table-cell">Type</TableHead>
-              <TableHead className="hidden xl:table-cell">Status</TableHead>
-              <TableHead className="hidden xl:table-cell">Date</TableHead>
-              <TableHead>Odds</TableHead>
-              <TableHead className="text-right">Prediction</TableHead>
+              <TableHead className="w-[40%]">Partido</TableHead>
+              <TableHead className="hidden md:table-cell">Fecha y hora</TableHead>
+              <TableHead>Cuota</TableHead>
+              <TableHead className="text-right">Predicción</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
             <TableRow>
               <TableCell>
                 <div className="font-medium">Valencia vs Barcelona</div>
+                <div className="text-sm text-muted-foreground md:hidden">
+                  15/08/2024 20:00h
+                </div>
                 <div className="text-sm text-muted-foreground">
-                  20:00h. La Liga
+                  La Liga
                 </div>
               </TableCell>
-              <TableCell className="hidden xl:table-cell">League</TableCell>
-              <TableCell className="hidden xl:table-cell">
-                <Badge className="text-xs" variant="outline">
-                  Upcoming
-                </Badge>
-              </TableCell>
-              <TableCell className="hidden xl:table-cell">2024-08-15</TableCell>
+              <TableCell className="hidden md:table-cell">15/08/2024 20:00h</TableCell>
               <TableCell>1.80€</TableCell>
               <TableCell className="text-right">
-                <Badge variant="secondary" className="whitespace-nowrap">
+                <Badge variant="secondary" className="whitespace-nowrap text-xs">
                   Over 2.5
                 </Badge>
               </TableCell>
@@ -72,25 +67,21 @@ export function NextEvents() {
             <TableRow>
               <TableCell>
                 <div className="font-medium">Real Madrid vs Atlético Madrid</div>
+                <div className="text-sm text-muted-foreground md:hidden">
+                  16/08/2024 21:30h
+                </div>
                 <div className="text-sm text-muted-foreground">
-                  21:30h. La Liga
+                  La Liga
                 </div>
               </TableCell>
-              <TableCell className="hidden xl:table-cell">League</TableCell>
-              <TableCell className="hidden xl:table-cell">
-                <Badge className="text-xs" variant="outline">
-                  Upcoming
-                </Badge>
-              </TableCell>
-              <TableCell className="hidden xl:table-cell">2024-08-16</TableCell>
+              <TableCell className="hidden md:table-cell">16/08/2024 21:30h</TableCell>
               <TableCell>2.10€</TableCell>
               <TableCell className="text-right">
-                <Badge variant="secondary" className="whitespace-nowrap">
+                <Badge variant="secondary" className="whitespace-nowrap text-xs">
                   Under 2.5
                 </Badge>
               </TableCell>
             </TableRow>
-            {/* Puedes añadir más filas aquí */}
           </TableBody>
         </Table>
       </CardContent>
