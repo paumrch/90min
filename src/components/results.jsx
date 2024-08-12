@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { ArrowUpRight, CheckCircle2, XCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
@@ -18,54 +18,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 import Link from "next/link";
 
-export function Results() {
-  const [completedMatches, setCompletedMatches] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const fetchResults = async () => {
-      try {
-        setIsLoading(true);
-        const response = await fetch("/api/results");
-        if (!response.ok) {
-          throw new Error("Failed to fetch results");
-        }
-        const data = await response.json();
-        setCompletedMatches(data);
-      } catch (error) {
-        console.error("Error fetching results:", error);
-        setError(error.message);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchResults();
-  }, []);
-
-  if (isLoading) {
-    return (
-      <Alert>
-        <AlertTitle>Cargando</AlertTitle>
-        <AlertDescription>Obteniendo resultados de partidos...</AlertDescription>
-      </Alert>
-    );
-  }
-
-  if (error) {
-    return (
-      <Alert variant="destructive">
-        <AlertTitle>Error</AlertTitle>
-        <AlertDescription>{error}</AlertDescription>
-      </Alert>
-    );
-  }
-
+export function Results({ initialResults }) {
   return (
     <Card className="xl:col-span-2">
       <CardHeader className="flex flex-row items-center justify-between">
@@ -91,7 +47,7 @@ export function Results() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {completedMatches.map((match) => (
+            {initialResults.map((match) => (
               <TableRow key={match.id}>
                 <TableCell>
                   <div className="font-medium">{`${match.home_team} vs ${match.away_team}`}</div>

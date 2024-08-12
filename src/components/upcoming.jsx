@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Table,
@@ -11,34 +11,8 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
-export function Upcoming() {
-  const [upcomingMatches, setUpcomingMatches] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const fetchUpcomingMatches = async () => {
-      try {
-        setIsLoading(true);
-        const response = await fetch("/api/upcoming");
-        if (!response.ok) {
-          throw new Error("Failed to fetch upcoming matches");
-        }
-        const data = await response.json();
-        setUpcomingMatches(data);
-      } catch (error) {
-        console.error("Error fetching upcoming matches:", error);
-        setError(error.message);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchUpcomingMatches();
-  }, []);
-
+export function Upcoming({ initialUpcoming }) {
   const formatOdds = (odds) => {
     if (typeof odds === "number") {
       return odds.toFixed(2);
@@ -49,24 +23,6 @@ export function Upcoming() {
     }
     return "N/A";
   };
-
-  if (isLoading) {
-    return (
-      <Alert>
-        <AlertTitle>Cargando</AlertTitle>
-        <AlertDescription>Obteniendo próximos partidos...</AlertDescription>
-      </Alert>
-    );
-  }
-
-  if (error) {
-    return (
-      <Alert variant="destructive">
-        <AlertTitle>Error</AlertTitle>
-        <AlertDescription>{error}</AlertDescription>
-      </Alert>
-    );
-  }
 
   return (
     <Card>
@@ -84,7 +40,7 @@ export function Upcoming() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {upcomingMatches.map((match) => (
+            {initialUpcoming.map((match) => (
               <TableRow key={match.id}>
                 <TableCell>{`${match.home_team} vs ${match.away_team}`}</TableCell>
                 <TableCell>

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -11,54 +11,30 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { useToast } from "@/components/ui/use-toast";
 
-export function Prediction({ onPredictionsSave }) {
-  const [matches, setMatches] = useState([]);
-  const [selectedPredictions, setSelectedPredictions] = useState({});
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const { toast } = useToast();
-
-  useEffect(() => {
-    const fetchMatches = async () => {
-      try {
-        setIsLoading(true);
-        const response = await fetch("/api/odds");
-        if (!response.ok) {
-          throw new Error("Failed to fetch matches");
-        }
-        const data = await response.json();
-        const processedData = data.map((match) => {
-          const livescoreBet = match.bookmakers.find(
-            (b) => b.key === "livescorebet_eu"
-          );
-          const totalsMarket = livescoreBet?.markets.find(
-            (m) => m.key === "totals"
-          );
-          const overOdds = totalsMarket?.outcomes.find(
-            (o) => o.name === "Over"
-          )?.price;
-          const underOdds = totalsMarket?.outcomes.find(
-            (o) => o.name === "Under"
-          )?.price;
-          return {
-            ...match,
-            overOdds,
-            underOdds,
-          };
-        });
-        setMatches(processedData);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setIsLoading(false);
-      }
+export function Prediction({ initialMatches }) {
+  const [matches, setMatches] = useState(initialMatches.map((match) => {
+    const livescoreBet = match.bookmakers.find(
+      (b) => b.key === "livescorebet_eu"
+    );
+    const totalsMarket = livescoreBet?.markets.find(
+      (m) => m.key === "totals"
+    );
+    const overOdds = totalsMarket?.outcomes.find(
+      (o) => o.name === "Over"
+    )?.price;
+    const underOdds = totalsMarket?.outcomes.find(
+      (o) => o.name === "Under"
+    )?.price;
+    return {
+      ...match,
+      overOdds,
+      underOdds,
     };
-
-    fetchMatches();
-  }, []);
+  }));
+  const [selectedPredictions, setSelectedPredictions] = useState({});
+  const { toast } = useToast();
 
   const handlePredictionSelect = (matchId, prediction, odds) => {
     setSelectedPredictions((prev) => ({
@@ -101,14 +77,12 @@ export function Prediction({ onPredictionsSave }) {
 
       const result = await response.json();
       console.log("API Response:", result);
-      onPredictionsSave(selectedPredictions);
       toast({
         title: "Éxito",
         description: "Las predicciones se han guardado correctamente.",
       });
     } catch (err) {
       console.error("Error al guardar predicciones:", err);
-      setError("Failed to save predictions: " + err.message);
       toast({
         title: "Error",
         description:
@@ -117,21 +91,6 @@ export function Prediction({ onPredictionsSave }) {
       });
     }
   };
-
-  if (isLoading)
-    return (
-      <Alert>
-        <AlertTitle>Cargando</AlertTitle>
-        <AlertDescription>Obteniendo partidos disponibles...</AlertDescription>
-      </Alert>
-    );
-  if (error)
-    return (
-      <Alert variant="destructive">
-        <AlertTitle>Error</AlertTitle>
-        <AlertDescription>{error}</AlertDescription>
-      </Alert>
-    );
 
   return (
     <Card>
