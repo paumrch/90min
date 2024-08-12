@@ -101,7 +101,7 @@ export function Results() {
                 </TableCell>
                 <TableCell className="text-right">
                   <div className="flex items-center justify-end gap-2">
-                    <span className="font-medium">{`${match.total_goals} goles`}</span>
+                    <span className="font-medium">{`${match.home_goals} - ${match.away_goals}`}</span>
                     {match.result === 'correct' ? (
                       <CheckCircle2 className="h-5 w-5 text-green-500" />
                     ) : (
