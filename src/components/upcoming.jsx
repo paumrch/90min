@@ -11,32 +11,46 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 export function Upcoming() {
   const [upcomingMatches, setUpcomingMatches] = useState([]);
-  const [predictions, setPredictions] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    // Fetch matches and predictions
     const fetchData = async () => {
-      const matchesResponse = await fetch("/api/odds");
-      const matchesData = await matchesResponse.json();
-
-      // Aquí deberías obtener las predicciones guardadas
-      // Por ejemplo, desde localStorage o una API
-      const savedPredictions = JSON.parse(
-        localStorage.getItem("predictions") || "{}"
-      );
-
-      setPredictions(savedPredictions);
-      setUpcomingMatches(matchesData);
+      try {
+        setIsLoading(true);
+        const response = await fetch("/api/upcoming");
+        if (!response.ok) {
+          throw new Error("Failed to fetch upcoming matches");
+        }
+        const data = await response.json();
+        setUpcomingMatches(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setIsLoading(false);
+      }
     };
     fetchData();
   }, []);
 
-  const matchesWithPredictions = upcomingMatches.filter(
-    (match) => predictions[match.id]
-  );
+  if (isLoading)
+    return (
+      <Alert>
+        <AlertTitle>Cargando</AlertTitle>
+        <AlertDescription>Obteniendo próximos partidos...</AlertDescription>
+      </Alert>
+    );
+  if (error)
+    return (
+      <Alert variant="destructive">
+        <AlertTitle>Error</AlertTitle>
+        <AlertDescription>{error}</AlertDescription>
+      </Alert>
+    );
 
   return (
     <Card>
@@ -54,20 +68,16 @@ export function Upcoming() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {matchesWithPredictions.map((match) => (
+            {upcomingMatches.map((match) => (
               <TableRow key={match.id}>
                 <TableCell>{`${match.home_team} vs ${match.away_team}`}</TableCell>
                 <TableCell>
-                  {new Date(match.commence_time).toLocaleString()}
+                  {new Date(match.start_time).toLocaleString()}
                 </TableCell>
                 <TableCell>
-                  <Badge>{predictions[match.id]}</Badge>
+                  <Badge>{match.prediction}</Badge>
                 </TableCell>
-                <TableCell>
-                  {match.bookmakers[0]?.markets[0]?.outcomes
-                    .find((o) => o.name === predictions[match.id].split(" ")[0])
-                    ?.price.toFixed(2) || "N/A"}
-                </TableCell>
+                <TableCell>{match.odds}</TableCell>
               </TableRow>
             ))}
           </TableBody>

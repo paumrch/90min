@@ -1,40 +1,43 @@
 import { NextResponse } from "next/server";
 import { fetchOddsData } from "@/app/utils/api";
+import { query } from "@/lib/db";
 
 export async function GET() {
   try {
     const sport = "soccer_denmark_superliga";
-    console.log("Fetching events data...");
-    const eventsData = await fetchOddsData(sport);
+    const apiData = await fetchOddsData(sport);
 
-    if (!eventsData || eventsData.length === 0) {
-      console.warn("No event data received from the API for Denmark Superliga");
-      return NextResponse.json(
-        { error: "No event data available" },
-        { status: 404 }
+    console.log("API Data:", JSON.stringify(apiData, null, 2));
+
+    // Procesar los datos recibidos
+    const processedData = apiData.map((match) => ({
+      id: match.id,
+      home_team: match.home_team,
+      away_team: match.away_team,
+      start_time: match.commence_time,
+    }));
+
+    // Guardar datos procesados en la base de datos
+    for (const match of processedData) {
+      await query(
+        "INSERT INTO matches (api_id, home_team, away_team, start_time, league, prediction, odds) " +
+          "VALUES ($1, $2, $3, $4, $5, $6, $7) " +
+          "ON CONFLICT (api_id) DO UPDATE SET " +
+          "home_team = EXCLUDED.home_team, away_team = EXCLUDED.away_team, " +
+          "start_time = EXCLUDED.start_time, updated_at = CURRENT_TIMESTAMP",
+        [
+          match.id,
+          match.home_team,
+          match.away_team,
+          match.start_time,
+          "Denmark Superliga",
+          "Pending",
+          1.0,
+        ]
       );
     }
 
-    console.log(
-      `Received ${eventsData.length} events. Fetching odds for each event...`
-    );
-
-    const eventsWithOdds = await Promise.all(
-      eventsData.map(async (event) => {
-        try {
-          console.log(`Fetching odds for event ${event.id}...`);
-          const oddsData = await fetchOddsData(sport, event.id);
-          console.log(`Odds data received for event ${event.id}:`, oddsData);
-          return { ...event, bookmakers: oddsData.bookmakers };
-        } catch (error) {
-          console.error(`Error fetching odds for event ${event.id}:`, error);
-          return { ...event, bookmakers: [] };
-        }
-      })
-    );
-
-    console.log("All events processed. Sending response...");
-    return NextResponse.json(eventsWithOdds);
+    return NextResponse.json(processedData);
   } catch (error) {
     console.error("Error in API route:", error);
     return NextResponse.json({ error: error.message }, { status: 500 });
