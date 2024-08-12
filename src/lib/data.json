@@ -1,0 +1,1407 @@
+[
+  {
+    "id": "0268f08ab7a6570ec262c2e03676278c",
+    "sport_key": "soccer_denmark_superliga",
+    "sport_title": "Denmark Superliga",
+    "commence_time": "2024-08-16T17:00:00Z",
+    "home_team": "Lyngby",
+    "away_team": "FC Midtjylland",
+    "bookmakers": [
+      {
+        "key": "coolbet",
+        "title": "Coolbet",
+        "last_update": "2024-08-12T19:44:50Z",
+        "markets": [
+          {
+            "key": "totals",
+            "last_update": "2024-08-12T19:44:50Z",
+            "outcomes": [
+              {
+                "name": "Over",
+                "price": 1.71,
+                "point": 2.5
+              },
+              {
+                "name": "Under",
+                "price": 2.1,
+                "point": 2.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "onexbet",
+        "title": "1xBet",
+        "last_update": "2024-08-12T19:44:48Z",
+        "markets": [
+          {
+            "key": "totals",
+            "last_update": "2024-08-12T19:44:48Z",
+            "outcomes": [
+              {
+                "name": "Over",
+                "price": 1.73,
+                "point": 2.5
+              },
+              {
+                "name": "Under",
+                "price": 2.12,
+                "point": 2.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "pinnacle",
+        "title": "Pinnacle",
+        "last_update": "2024-08-12T19:44:48Z",
+        "markets": [
+          {
+            "key": "totals",
+            "last_update": "2024-08-12T19:44:48Z",
+            "outcomes": [
+              {
+                "name": "Over",
+                "price": 1.9,
+                "point": 2.75
+              },
+              {
+                "name": "Under",
+                "price": 1.92,
+                "point": 2.75
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "gtbets",
+        "title": "GTbets",
+        "last_update": "2024-08-12T19:43:24Z",
+        "markets": [
+          {
+            "key": "totals",
+            "last_update": "2024-08-12T19:43:24Z",
+            "outcomes": [
+              {
+                "name": "Over",
+                "price": 1.71,
+                "point": 2.5
+              },
+              {
+                "name": "Under",
+                "price": 2.1,
+                "point": 2.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "nordicbet",
+        "title": "Nordic Bet",
+        "last_update": "2024-08-12T19:44:48Z",
+        "markets": [
+          {
+            "key": "totals",
+            "last_update": "2024-08-12T19:44:48Z",
+            "outcomes": [
+              {
+                "name": "Over",
+                "price": 1.71,
+                "point": 2.5
+              },
+              {
+                "name": "Under",
+                "price": 2.14,
+                "point": 2.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "tipico_de",
+        "title": "Tipico",
+        "last_update": "2024-08-12T19:44:51Z",
+        "markets": [
+          {
+            "key": "totals",
+            "last_update": "2024-08-12T19:44:51Z",
+            "outcomes": [
+              {
+                "name": "Over",
+                "price": 1.65,
+                "point": 2.5
+              },
+              {
+                "name": "Under",
+                "price": 2.1,
+                "point": 2.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "unibet_eu",
+        "title": "Unibet",
+        "last_update": "2024-08-12T19:44:50Z",
+        "markets": [
+          {
+            "key": "totals",
+            "last_update": "2024-08-12T19:44:50Z",
+            "outcomes": [
+              {
+                "name": "Over",
+                "price": 1.73,
+                "point": 2.5
+              },
+              {
+                "name": "Under",
+                "price": 2.12,
+                "point": 2.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "livescorebet_eu",
+        "title": "LiveScore Bet (EU)",
+        "last_update": "2024-08-12T19:44:50Z",
+        "markets": [
+          {
+            "key": "totals",
+            "last_update": "2024-08-12T19:44:50Z",
+            "outcomes": [
+              {
+                "name": "Over",
+                "price": 1.67,
+                "point": 2.5
+              },
+              {
+                "name": "Under",
+                "price": 2.04,
+                "point": 2.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "williamhill",
+        "title": "William Hill",
+        "last_update": "2024-08-12T19:43:23Z",
+        "markets": [
+          {
+            "key": "totals",
+            "last_update": "2024-08-12T19:43:23Z",
+            "outcomes": [
+              {
+                "name": "Over",
+                "price": 1.7,
+                "point": 2.5
+              },
+              {
+                "name": "Under",
+                "price": 2.05,
+                "point": 2.5
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "5df805232fa7e75a379b9ecc4e2b42cb",
+    "sport_key": "soccer_denmark_superliga",
+    "sport_title": "Denmark Superliga",
+    "commence_time": "2024-08-11T12:00:20Z",
+    "completed": true,
+    "home_team": "FC Nordsjaelland",
+    "away_team": "Lyngby",
+    "bookmakers": [
+      {
+        "key": "coolbet",
+        "title": "Coolbet",
+        "last_update": "2024-08-12T19:44:50Z",
+        "markets": [
+          {
+            "key": "totals",
+            "last_update": "2024-08-12T19:44:50Z",
+            "outcomes": [
+              {
+                "name": "Over",
+                "price": 2.06,
+                "point": 3
+              },
+              {
+                "name": "Under",
+                "price": 1.74,
+                "point": 3
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "onexbet",
+        "title": "1xBet",
+        "last_update": "2024-08-12T19:44:48Z",
+        "markets": [
+          {
+            "key": "totals",
+            "last_update": "2024-08-12T19:44:48Z",
+            "outcomes": [
+              {
+                "name": "Over",
+                "price": 1.68,
+                "point": 2.5
+              },
+              {
+                "name": "Under",
+                "price": 2.19,
+                "point": 2.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "pinnacle",
+        "title": "Pinnacle",
+        "last_update": "2024-08-12T19:44:48Z",
+        "markets": [
+          {
+            "key": "totals",
+            "last_update": "2024-08-12T19:44:48Z",
+            "outcomes": [
+              {
+                "name": "Over",
+                "price": 1.83,
+                "point": 2.75
+              },
+              {
+                "name": "Under",
+                "price": 2,
+                "point": 2.75
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "nordicbet",
+        "title": "Nordic Bet",
+        "last_update": "2024-08-12T19:44:48Z",
+        "markets": [
+          {
+            "key": "totals",
+            "last_update": "2024-08-12T19:44:48Z",
+            "outcomes": [
+              {
+                "name": "Over",
+                "price": 1.68,
+                "point": 2.5
+              },
+              {
+                "name": "Under",
+                "price": 2.19,
+                "point": 2.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "gtbets",
+        "title": "GTbets",
+        "last_update": "2024-08-12T19:43:24Z",
+        "markets": [
+          {
+            "key": "totals",
+            "last_update": "2024-08-12T19:43:24Z",
+            "outcomes": [
+              {
+                "name": "Over",
+                "price": 1.65,
+                "point": 2.5
+              },
+              {
+                "name": "Under",
+                "price": 2.17,
+                "point": 2.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "tipico_de",
+        "title": "Tipico",
+        "last_update": "2024-08-12T19:44:51Z",
+        "markets": [
+          {
+            "key": "totals",
+            "last_update": "2024-08-12T19:44:51Z",
+            "outcomes": [
+              {
+                "name": "Over",
+                "price": 1.6,
+                "point": 2.5
+              },
+              {
+                "name": "Under",
+                "price": 2.2,
+                "point": 2.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "unibet_eu",
+        "title": "Unibet",
+        "last_update": "2024-08-12T19:44:50Z",
+        "markets": [
+          {
+            "key": "totals",
+            "last_update": "2024-08-12T19:44:50Z",
+            "outcomes": [
+              {
+                "name": "Over",
+                "price": 1.65,
+                "point": 2.5
+              },
+              {
+                "name": "Under",
+                "price": 2.25,
+                "point": 2.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "livescorebet_eu",
+        "title": "LiveScore Bet (EU)",
+        "last_update": "2024-08-12T19:44:50Z",
+        "markets": [
+          {
+            "key": "totals",
+            "last_update": "2024-08-12T19:44:50Z",
+            "outcomes": [
+              {
+                "name": "Over",
+                "price": 1.6,
+                "point": 2.5
+              },
+              {
+                "name": "Under",
+                "price": 2.16,
+                "point": 2.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "williamhill",
+        "title": "William Hill",
+        "last_update": "2024-08-12T19:43:23Z",
+        "markets": [
+          {
+            "key": "totals",
+            "last_update": "2024-08-12T19:43:23Z",
+            "outcomes": [
+              {
+                "name": "Over",
+                "price": 1.67,
+                "point": 2.5
+              },
+              {
+                "name": "Under",
+                "price": 2.1,
+                "point": 2.5
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "f025b253ca95e6d845914b7d39c33ccf",
+    "sport_key": "soccer_denmark_superliga",
+    "sport_title": "Denmark Superliga",
+    "commence_time": "2024-08-18T12:00:00Z",
+    "home_team": "Silkeborg IF",
+    "away_team": "FC Nordsjaelland",
+    "bookmakers": [
+      {
+        "key": "coolbet",
+        "title": "Coolbet",
+        "last_update": "2024-08-12T19:44:50Z",
+        "markets": [
+          {
+            "key": "totals",
+            "last_update": "2024-08-12T19:44:50Z",
+            "outcomes": [
+              {
+                "name": "Over",
+                "price": 2.06,
+                "point": 3
+              },
+              {
+                "name": "Under",
+                "price": 1.74,
+                "point": 3
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "onexbet",
+        "title": "1xBet",
+        "last_update": "2024-08-12T19:44:48Z",
+        "markets": [
+          {
+            "key": "totals",
+            "last_update": "2024-08-12T19:44:48Z",
+            "outcomes": [
+              {
+                "name": "Over",
+                "price": 1.68,
+                "point": 2.5
+              },
+              {
+                "name": "Under",
+                "price": 2.19,
+                "point": 2.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "pinnacle",
+        "title": "Pinnacle",
+        "last_update": "2024-08-12T19:44:48Z",
+        "markets": [
+          {
+            "key": "totals",
+            "last_update": "2024-08-12T19:44:48Z",
+            "outcomes": [
+              {
+                "name": "Over",
+                "price": 1.83,
+                "point": 2.75
+              },
+              {
+                "name": "Under",
+                "price": 2,
+                "point": 2.75
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "nordicbet",
+        "title": "Nordic Bet",
+        "last_update": "2024-08-12T19:44:48Z",
+        "markets": [
+          {
+            "key": "totals",
+            "last_update": "2024-08-12T19:44:48Z",
+            "outcomes": [
+              {
+                "name": "Over",
+                "price": 1.68,
+                "point": 2.5
+              },
+              {
+                "name": "Under",
+                "price": 2.19,
+                "point": 2.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "gtbets",
+        "title": "GTbets",
+        "last_update": "2024-08-12T19:43:24Z",
+        "markets": [
+          {
+            "key": "totals",
+            "last_update": "2024-08-12T19:43:24Z",
+            "outcomes": [
+              {
+                "name": "Over",
+                "price": 1.65,
+                "point": 2.5
+              },
+              {
+                "name": "Under",
+                "price": 2.17,
+                "point": 2.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "tipico_de",
+        "title": "Tipico",
+        "last_update": "2024-08-12T19:44:51Z",
+        "markets": [
+          {
+            "key": "totals",
+            "last_update": "2024-08-12T19:44:51Z",
+            "outcomes": [
+              {
+                "name": "Over",
+                "price": 1.6,
+                "point": 2.5
+              },
+              {
+                "name": "Under",
+                "price": 2.2,
+                "point": 2.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "unibet_eu",
+        "title": "Unibet",
+        "last_update": "2024-08-12T19:44:50Z",
+        "markets": [
+          {
+            "key": "totals",
+            "last_update": "2024-08-12T19:44:50Z",
+            "outcomes": [
+              {
+                "name": "Over",
+                "price": 1.65,
+                "point": 2.5
+              },
+              {
+                "name": "Under",
+                "price": 2.25,
+                "point": 2.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "livescorebet_eu",
+        "title": "LiveScore Bet (EU)",
+        "last_update": "2024-08-12T19:44:50Z",
+        "markets": [
+          {
+            "key": "totals",
+            "last_update": "2024-08-12T19:44:50Z",
+            "outcomes": [
+              {
+                "name": "Over",
+                "price": 1.6,
+                "point": 2.5
+              },
+              {
+                "name": "Under",
+                "price": 2.16,
+                "point": 2.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "williamhill",
+        "title": "William Hill",
+        "last_update": "2024-08-12T19:43:23Z",
+        "markets": [
+          {
+            "key": "totals",
+            "last_update": "2024-08-12T19:43:23Z",
+            "outcomes": [
+              {
+                "name": "Over",
+                "price": 1.67,
+                "point": 2.5
+              },
+              {
+                "name": "Under",
+                "price": 2.1,
+                "point": 2.5
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "b02e0c3b42329537113e2641781f50e2",
+    "sport_key": "soccer_denmark_superliga",
+    "sport_title": "Denmark Superliga",
+    "commence_time": "2024-08-18T12:00:00Z",
+    "home_team": "Randers FC",
+    "away_team": "SonderjyskE",
+    "bookmakers": [
+      {
+        "key": "coolbet",
+        "title": "Coolbet",
+        "last_update": "2024-08-12T19:44:50Z",
+        "markets": [
+          {
+            "key": "totals",
+            "last_update": "2024-08-12T19:44:50Z",
+            "outcomes": [
+              {
+                "name": "Over",
+                "price": 1.82,
+                "point": 2.5
+              },
+              {
+                "name": "Under",
+                "price": 1.96,
+                "point": 2.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "onexbet",
+        "title": "1xBet",
+        "last_update": "2024-08-12T19:44:48Z",
+        "markets": [
+          {
+            "key": "totals",
+            "last_update": "2024-08-12T19:44:48Z",
+            "outcomes": [
+              {
+                "name": "Over",
+                "price": 1.83,
+                "point": 2.5
+              },
+              {
+                "name": "Under",
+                "price": 1.98,
+                "point": 2.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "nordicbet",
+        "title": "Nordic Bet",
+        "last_update": "2024-08-12T19:44:48Z",
+        "markets": [
+          {
+            "key": "totals",
+            "last_update": "2024-08-12T19:44:48Z",
+            "outcomes": [
+              {
+                "name": "Over",
+                "price": 1.83,
+                "point": 2.5
+              },
+              {
+                "name": "Under",
+                "price": 1.98,
+                "point": 2.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "gtbets",
+        "title": "GTbets",
+        "last_update": "2024-08-12T19:43:24Z",
+        "markets": [
+          {
+            "key": "totals",
+            "last_update": "2024-08-12T19:43:24Z",
+            "outcomes": [
+              {
+                "name": "Over",
+                "price": 1.81,
+                "point": 2.5
+              },
+              {
+                "name": "Under",
+                "price": 1.96,
+                "point": 2.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "tipico_de",
+        "title": "Tipico",
+        "last_update": "2024-08-12T19:44:51Z",
+        "markets": [
+          {
+            "key": "totals",
+            "last_update": "2024-08-12T19:44:51Z",
+            "outcomes": [
+              {
+                "name": "Over",
+                "price": 1.75,
+                "point": 2.5
+              },
+              {
+                "name": "Under",
+                "price": 1.95,
+                "point": 2.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "unibet_eu",
+        "title": "Unibet",
+        "last_update": "2024-08-12T19:44:50Z",
+        "markets": [
+          {
+            "key": "totals",
+            "last_update": "2024-08-12T19:44:50Z",
+            "outcomes": [
+              {
+                "name": "Over",
+                "price": 1.8,
+                "point": 2.5
+              },
+              {
+                "name": "Under",
+                "price": 2.02,
+                "point": 2.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "livescorebet_eu",
+        "title": "LiveScore Bet (EU)",
+        "last_update": "2024-08-12T19:44:50Z",
+        "markets": [
+          {
+            "key": "totals",
+            "last_update": "2024-08-12T19:44:50Z",
+            "outcomes": [
+              {
+                "name": "Over",
+                "price": 1.74,
+                "point": 2.5
+              },
+              {
+                "name": "Under",
+                "price": 1.95,
+                "point": 2.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "williamhill",
+        "title": "William Hill",
+        "last_update": "2024-08-12T19:43:23Z",
+        "markets": [
+          {
+            "key": "totals",
+            "last_update": "2024-08-12T19:43:23Z",
+            "outcomes": [
+              {
+                "name": "Over",
+                "price": 1.8,
+                "point": 2.5
+              },
+              {
+                "name": "Under",
+                "price": 1.91,
+                "point": 2.5
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "4f53c143294c87f57d54a510ef043555",
+    "sport_key": "soccer_denmark_superliga",
+    "sport_title": "Denmark Superliga",
+    "commence_time": "2024-08-18T14:00:00Z",
+    "home_team": "FC Copenhagen",
+    "away_team": "Viborg FF",
+    "bookmakers": [
+      {
+        "key": "coolbet",
+        "title": "Coolbet",
+        "last_update": "2024-08-12T19:44:50Z",
+        "markets": [
+          {
+            "key": "totals",
+            "last_update": "2024-08-12T19:44:50Z",
+            "outcomes": [
+              {
+                "name": "Over",
+                "price": 1.8,
+                "point": 3
+              },
+              {
+                "name": "Under",
+                "price": 1.98,
+                "point": 3
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "onexbet",
+        "title": "1xBet",
+        "last_update": "2024-08-12T19:44:48Z",
+        "markets": [
+          {
+            "key": "totals",
+            "last_update": "2024-08-12T19:44:48Z",
+            "outcomes": [
+              {
+                "name": "Over",
+                "price": 2.25,
+                "point": 3.5
+              },
+              {
+                "name": "Under",
+                "price": 1.65,
+                "point": 3.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "gtbets",
+        "title": "GTbets",
+        "last_update": "2024-08-12T19:43:24Z",
+        "markets": [
+          {
+            "key": "totals",
+            "last_update": "2024-08-12T19:43:24Z",
+            "outcomes": [
+              {
+                "name": "Over",
+                "price": 2.25,
+                "point": 3.5
+              },
+              {
+                "name": "Under",
+                "price": 1.62,
+                "point": 3.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "nordicbet",
+        "title": "Nordic Bet",
+        "last_update": "2024-08-12T19:44:48Z",
+        "markets": [
+          {
+            "key": "totals",
+            "last_update": "2024-08-12T19:44:48Z",
+            "outcomes": [
+              {
+                "name": "Over",
+                "price": 2.25,
+                "point": 3.5
+              },
+              {
+                "name": "Under",
+                "price": 1.65,
+                "point": 3.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "tipico_de",
+        "title": "Tipico",
+        "last_update": "2024-08-12T19:44:51Z",
+        "markets": [
+          {
+            "key": "totals",
+            "last_update": "2024-08-12T19:44:51Z",
+            "outcomes": [
+              {
+                "name": "Over",
+                "price": 2.1,
+                "point": 3.5
+              },
+              {
+                "name": "Under",
+                "price": 1.65,
+                "point": 3.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "unibet_eu",
+        "title": "Unibet",
+        "last_update": "2024-08-12T19:44:50Z",
+        "markets": [
+          {
+            "key": "totals",
+            "last_update": "2024-08-12T19:44:50Z",
+            "outcomes": [
+              {
+                "name": "Over",
+                "price": 2.43,
+                "point": 3.5
+              },
+              {
+                "name": "Under",
+                "price": 1.56,
+                "point": 3.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "livescorebet_eu",
+        "title": "LiveScore Bet (EU)",
+        "last_update": "2024-08-12T19:44:50Z",
+        "markets": [
+          {
+            "key": "totals",
+            "last_update": "2024-08-12T19:44:50Z",
+            "outcomes": [
+              {
+                "name": "Over",
+                "price": 2.33,
+                "point": 3.5
+              },
+              {
+                "name": "Under",
+                "price": 1.52,
+                "point": 3.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "pinnacle",
+        "title": "Pinnacle",
+        "last_update": "2024-08-12T19:44:48Z",
+        "markets": [
+          {
+            "key": "totals",
+            "last_update": "2024-08-12T19:44:48Z",
+            "outcomes": [
+              {
+                "name": "Over",
+                "price": 2.02,
+                "point": 3.25
+              },
+              {
+                "name": "Under",
+                "price": 1.81,
+                "point": 3.25
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "8e635ef042f0419d2216c53abe9cd030",
+    "sport_key": "soccer_denmark_superliga",
+    "sport_title": "Denmark Superliga",
+    "commence_time": "2024-08-18T16:00:00Z",
+    "home_team": "AaB",
+    "away_team": "Brondby IF",
+    "bookmakers": [
+      {
+        "key": "onexbet",
+        "title": "1xBet",
+        "last_update": "2024-08-12T19:44:48Z",
+        "markets": [
+          {
+            "key": "totals",
+            "last_update": "2024-08-12T19:44:48Z",
+            "outcomes": [
+              {
+                "name": "Over",
+                "price": 1.61,
+                "point": 2.5
+              },
+              {
+                "name": "Under",
+                "price": 2.32,
+                "point": 2.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "coolbet",
+        "title": "Coolbet",
+        "last_update": "2024-08-12T19:44:50Z",
+        "markets": [
+          {
+            "key": "totals",
+            "last_update": "2024-08-12T19:44:50Z",
+            "outcomes": [
+              {
+                "name": "Over",
+                "price": 2.12,
+                "point": 3
+              },
+              {
+                "name": "Under",
+                "price": 1.7,
+                "point": 3
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "gtbets",
+        "title": "GTbets",
+        "last_update": "2024-08-12T19:43:24Z",
+        "markets": [
+          {
+            "key": "totals",
+            "last_update": "2024-08-12T19:43:24Z",
+            "outcomes": [
+              {
+                "name": "Over",
+                "price": 1.61,
+                "point": 2.5
+              },
+              {
+                "name": "Under",
+                "price": 2.3,
+                "point": 2.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "tipico_de",
+        "title": "Tipico",
+        "last_update": "2024-08-12T19:44:51Z",
+        "markets": [
+          {
+            "key": "totals",
+            "last_update": "2024-08-12T19:44:51Z",
+            "outcomes": [
+              {
+                "name": "Over",
+                "price": 1.65,
+                "point": 2.5
+              },
+              {
+                "name": "Under",
+                "price": 2.1,
+                "point": 2.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "unibet_eu",
+        "title": "Unibet",
+        "last_update": "2024-08-12T19:44:50Z",
+        "markets": [
+          {
+            "key": "totals",
+            "last_update": "2024-08-12T19:44:50Z",
+            "outcomes": [
+              {
+                "name": "Over",
+                "price": 1.68,
+                "point": 2.5
+              },
+              {
+                "name": "Under",
+                "price": 2.18,
+                "point": 2.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "livescorebet_eu",
+        "title": "LiveScore Bet (EU)",
+        "last_update": "2024-08-12T19:44:50Z",
+        "markets": [
+          {
+            "key": "totals",
+            "last_update": "2024-08-12T19:44:50Z",
+            "outcomes": [
+              {
+                "name": "Over",
+                "price": 1.64,
+                "point": 2.5
+              },
+              {
+                "name": "Under",
+                "price": 2.1,
+                "point": 2.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "nordicbet",
+        "title": "Nordic Bet",
+        "last_update": "2024-08-12T19:44:48Z",
+        "markets": [
+          {
+            "key": "totals",
+            "last_update": "2024-08-12T19:44:48Z",
+            "outcomes": [
+              {
+                "name": "Over",
+                "price": 1.65,
+                "point": 2.5
+              },
+              {
+                "name": "Under",
+                "price": 2.24,
+                "point": 2.5
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "7313f7155583c92599a7ec3adeb89522",
+    "sport_key": "soccer_denmark_superliga",
+    "sport_title": "Denmark Superliga",
+    "commence_time": "2024-08-19T17:00:00Z",
+    "home_team": "AGF Aarhus",
+    "away_team": "Vejle Boldklub",
+    "bookmakers": [
+      {
+        "key": "onexbet",
+        "title": "1xBet",
+        "last_update": "2024-08-12T19:44:48Z",
+        "markets": [
+          {
+            "key": "totals",
+            "last_update": "2024-08-12T19:44:48Z",
+            "outcomes": [
+              {
+                "name": "Over",
+                "price": 1.96,
+                "point": 2.5
+              },
+              {
+                "name": "Under",
+                "price": 1.85,
+                "point": 2.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "tipico_de",
+        "title": "Tipico",
+        "last_update": "2024-08-12T19:44:51Z",
+        "markets": [
+          {
+            "key": "totals",
+            "last_update": "2024-08-12T19:44:51Z",
+            "outcomes": [
+              {
+                "name": "Over",
+                "price": 1.83,
+                "point": 2.5
+              },
+              {
+                "name": "Under",
+                "price": 1.85,
+                "point": 2.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "livescorebet_eu",
+        "title": "LiveScore Bet (EU)",
+        "last_update": "2024-08-12T19:44:50Z",
+        "markets": [
+          {
+            "key": "totals",
+            "last_update": "2024-08-12T19:44:50Z",
+            "outcomes": [
+              {
+                "name": "Over",
+                "price": 1.8,
+                "point": 2.5
+              },
+              {
+                "name": "Under",
+                "price": 1.89,
+                "point": 2.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "unibet_eu",
+        "title": "Unibet",
+        "last_update": "2024-08-12T19:44:50Z",
+        "markets": [
+          {
+            "key": "totals",
+            "last_update": "2024-08-12T19:44:50Z",
+            "outcomes": [
+              {
+                "name": "Over",
+                "price": 1.85,
+                "point": 2.5
+              },
+              {
+                "name": "Under",
+                "price": 1.94,
+                "point": 2.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "nordicbet",
+        "title": "Nordic Bet",
+        "last_update": "2024-08-12T19:44:48Z",
+        "markets": [
+          {
+            "key": "totals",
+            "last_update": "2024-08-12T19:44:48Z",
+            "outcomes": [
+              {
+                "name": "Over",
+                "price": 1.96,
+                "point": 2.5
+              },
+              {
+                "name": "Under",
+                "price": 1.85,
+                "point": 2.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "coolbet",
+        "title": "Coolbet",
+        "last_update": "2024-08-12T19:44:50Z",
+        "markets": [
+          {
+            "key": "totals",
+            "last_update": "2024-08-12T19:44:50Z",
+            "outcomes": [
+              {
+                "name": "Over",
+                "price": 1.87,
+                "point": 2.5
+              },
+              {
+                "name": "Under",
+                "price": 1.9,
+                "point": 2.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "pinnacle",
+        "title": "Pinnacle",
+        "last_update": "2024-08-12T19:44:48Z",
+        "markets": [
+          {
+            "key": "totals",
+            "last_update": "2024-08-12T19:44:48Z",
+            "outcomes": [
+              {
+                "name": "Over",
+                "price": 1.99,
+                "point": 2.5
+              },
+              {
+                "name": "Under",
+                "price": 1.83,
+                "point": 2.5
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "williamhill",
+        "title": "William Hill",
+        "last_update": "2024-08-12T19:43:23Z",
+        "markets": [
+          {
+            "key": "totals",
+            "last_update": "2024-08-12T19:43:23Z",
+            "outcomes": [
+              {
+                "name": "Over",
+                "price": 1.91,
+                "point": 2.5
+              },
+              {
+                "name": "Under",
+                "price": 1.8,
+                "point": 2.5
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

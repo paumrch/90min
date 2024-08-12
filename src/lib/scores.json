@@ -1,0 +1,22 @@
+[
+  {
+    "id": "5df805232fa7e75a379b9ecc4e2b42cb",
+    "sport_key": "soccer_denmark_superliga",
+    "sport_title": "Denmark Superliga",
+    "commence_time": "2024-08-11T12:00:20Z",
+    "completed": true,
+    "home_team": "FC Nordsjaelland",
+    "away_team": "Lyngby",
+    "scores": [
+      {
+        "name": "FC Nordsjaelland",
+        "score": "1"
+      },
+      {
+        "name": "Lyngby",
+        "score": "1"
+      }
+    ],
+    "last_update": "2024-08-12T17:16:40Z"
+  }
+]

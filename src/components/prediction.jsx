@@ -12,47 +12,44 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { useRouter } from "next/navigation";
+import { useToast } from "@/components/ui/use-toast";
 
 export function Prediction({ onPredictionsSave }) {
-  const [availableMatches, setAvailableMatches] = useState([]);
+  const [matches, setMatches] = useState([]);
   const [selectedPredictions, setSelectedPredictions] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [successMessage, setSuccessMessage] = useState(null);
-  const router = useRouter();
+  const { toast } = useToast();
 
   useEffect(() => {
-    const fetchMatchesAndOdds = async () => {
+    const fetchMatches = async () => {
       try {
         setIsLoading(true);
-        // Obtener la lista de partidos
-        const matchesResponse = await fetch("/api/odds");
-        if (!matchesResponse.ok) {
+        const response = await fetch("/api/odds");
+        if (!response.ok) {
           throw new Error("Failed to fetch matches");
         }
-        const matchesData = await matchesResponse.json();
-
-        // Obtener las cuotas para cada partido
-        const matchesWithOdds = await Promise.all(
-          matchesData.map(async (match) => {
-            const oddsResponse = await fetch(`/api/odds/${match.id}`);
-            if (!oddsResponse.ok) {
-              console.error(`Failed to fetch odds for match ${match.id}`);
-              return { ...match, overOdds: null, underOdds: null };
-            }
-            const oddsData = await oddsResponse.json();
-            const overOdds = oddsData.bookmakers[0]?.markets[0]?.outcomes.find(
-              (o) => o.name === "Over"
-            )?.price;
-            const underOdds = oddsData.bookmakers[0]?.markets[0]?.outcomes.find(
-              (o) => o.name === "Under"
-            )?.price;
-            return { ...match, overOdds, underOdds };
-          })
-        );
-
-        setAvailableMatches(matchesWithOdds);
+        const data = await response.json();
+        const processedData = data.map((match) => {
+          const livescoreBet = match.bookmakers.find(
+            (b) => b.key === "livescorebet_eu"
+          );
+          const totalsMarket = livescoreBet?.markets.find(
+            (m) => m.key === "totals"
+          );
+          const overOdds = totalsMarket?.outcomes.find(
+            (o) => o.name === "Over"
+          )?.price;
+          const underOdds = totalsMarket?.outcomes.find(
+            (o) => o.name === "Under"
+          )?.price;
+          return {
+            ...match,
+            overOdds,
+            underOdds,
+          };
+        });
+        setMatches(processedData);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -60,7 +57,7 @@ export function Prediction({ onPredictionsSave }) {
       }
     };
 
-    fetchMatchesAndOdds();
+    fetchMatches();
   }, []);
 
   const handlePredictionSelect = (matchId, prediction, odds) => {
@@ -72,28 +69,52 @@ export function Prediction({ onPredictionsSave }) {
 
   const handleSavePredictions = async () => {
     try {
-      const predictionsToSave = Object.entries(selectedPredictions).map(
-        ([matchId, data]) => ({
-          api_id: matchId,
-          prediction: data.prediction,
-          odds: data.odds,
-        })
+      const predictionsArray = Object.entries(selectedPredictions).map(
+        ([matchId, data]) => {
+          const match = matches.find((m) => m.id === matchId);
+          return {
+            api_id: matchId,
+            home_team: match.home_team,
+            away_team: match.away_team,
+            start_time: match.commence_time,
+            league: match.sport_title,
+            prediction: data.prediction,
+            odds: data.odds,
+          };
+        }
       );
 
-      await fetch("/api/predictions", {
+      console.log("Sending predictions:", { predictions: predictionsArray });
+
+      const response = await fetch("/api/predictions", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(predictionsToSave),
+        body: JSON.stringify({ predictions: predictionsArray }),
       });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(
+          `HTTP error! status: ${response.status}, message: ${errorText}`
+        );
+      }
+
+      const result = await response.json();
+      console.log("API Response:", result);
       onPredictionsSave(selectedPredictions);
-      setSuccessMessage(
-        "Predicciones guardadas con éxito. Puedes ir a la página principal para ver los próximos partidos."
-      );
-      setTimeout(() => {
-        router.push("/");
-      }, 5000);
+      toast({
+        title: "Éxito",
+        description: "Las predicciones se han guardado correctamente.",
+      });
     } catch (err) {
-      setError("Failed to save predictions");
+      console.error("Error al guardar predicciones:", err);
+      setError("Failed to save predictions: " + err.message);
+      toast({
+        title: "Error",
+        description:
+          "No se pudieron guardar las predicciones. Por favor, intenta de nuevo.",
+        variant: "destructive",
+      });
     }
   };
 
@@ -101,7 +122,7 @@ export function Prediction({ onPredictionsSave }) {
     return (
       <Alert>
         <AlertTitle>Cargando</AlertTitle>
-        <AlertDescription>Obteniendo partidos y cuotas...</AlertDescription>
+        <AlertDescription>Obteniendo partidos disponibles...</AlertDescription>
       </Alert>
     );
   if (error)
@@ -109,13 +130,6 @@ export function Prediction({ onPredictionsSave }) {
       <Alert variant="destructive">
         <AlertTitle>Error</AlertTitle>
         <AlertDescription>{error}</AlertDescription>
-      </Alert>
-    );
-  if (successMessage)
-    return (
-      <Alert>
-        <AlertTitle>Éxito</AlertTitle>
-        <AlertDescription>{successMessage}</AlertDescription>
       </Alert>
     );
 
@@ -134,7 +148,7 @@ export function Prediction({ onPredictionsSave }) {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {availableMatches.map((match) => (
+            {matches.map((match) => (
               <TableRow key={match.id}>
                 <TableCell>{`${match.home_team} vs ${match.away_team}`}</TableCell>
                 <TableCell>

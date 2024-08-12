@@ -19,7 +19,7 @@ export function Upcoming() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchUpcomingMatches = async () => {
       try {
         setIsLoading(true);
         const response = await fetch("/api/upcoming");
@@ -28,34 +28,50 @@ export function Upcoming() {
         }
         const data = await response.json();
         setUpcomingMatches(data);
-      } catch (err) {
-        setError(err.message);
+      } catch (error) {
+        console.error("Error fetching upcoming matches:", error);
+        setError(error.message);
       } finally {
         setIsLoading(false);
       }
     };
-    fetchData();
+
+    fetchUpcomingMatches();
   }, []);
 
-  if (isLoading)
+  const formatOdds = (odds) => {
+    if (typeof odds === "number") {
+      return odds.toFixed(2);
+    }
+    if (typeof odds === "string") {
+      const num = parseFloat(odds);
+      return isNaN(num) ? "N/A" : num.toFixed(2);
+    }
+    return "N/A";
+  };
+
+  if (isLoading) {
     return (
       <Alert>
         <AlertTitle>Cargando</AlertTitle>
         <AlertDescription>Obteniendo próximos partidos...</AlertDescription>
       </Alert>
     );
-  if (error)
+  }
+
+  if (error) {
     return (
       <Alert variant="destructive">
         <AlertTitle>Error</AlertTitle>
         <AlertDescription>{error}</AlertDescription>
       </Alert>
     );
+  }
 
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Próximos Partidos con Predicciones</CardTitle>
+        <CardTitle>Próximos Partidos</CardTitle>
       </CardHeader>
       <CardContent>
         <Table>
@@ -75,9 +91,9 @@ export function Upcoming() {
                   {new Date(match.start_time).toLocaleString()}
                 </TableCell>
                 <TableCell>
-                  <Badge>{match.prediction}</Badge>
+                  <Badge>{match.prediction || "N/A"}</Badge>
                 </TableCell>
-                <TableCell>{match.odds}</TableCell>
+                <TableCell>{formatOdds(match.odds)} €</TableCell>
               </TableRow>
             ))}
           </TableBody>

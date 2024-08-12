@@ -1,45 +1,13 @@
 import { NextResponse } from "next/server";
-import { fetchOddsData } from "@/app/utils/api";
-import { query } from "@/lib/db";
+import { getData } from "@/lib/response";
 
 export async function GET() {
   try {
-    const sport = "soccer_denmark_superliga";
-    const apiData = await fetchOddsData(sport);
+    const data = getData();
 
-    console.log("API Data:", JSON.stringify(apiData, null, 2));
-
-    // Procesar los datos recibidos
-    const processedData = apiData.map((match) => ({
-      id: match.id,
-      home_team: match.home_team,
-      away_team: match.away_team,
-      start_time: match.commence_time,
-    }));
-
-    // Guardar datos procesados en la base de datos
-    for (const match of processedData) {
-      await query(
-        "INSERT INTO matches (api_id, home_team, away_team, start_time, league, prediction, odds) " +
-          "VALUES ($1, $2, $3, $4, $5, $6, $7) " +
-          "ON CONFLICT (api_id) DO UPDATE SET " +
-          "home_team = EXCLUDED.home_team, away_team = EXCLUDED.away_team, " +
-          "start_time = EXCLUDED.start_time, updated_at = CURRENT_TIMESTAMP",
-        [
-          match.id,
-          match.home_team,
-          match.away_team,
-          match.start_time,
-          "Denmark Superliga",
-          "Pending",
-          1.0,
-        ]
-      );
-    }
-
-    return NextResponse.json(processedData);
+    return NextResponse.json(data);
   } catch (error) {
-    console.error("Error in API route:", error);
+    console.error("Error fetching odds data:", error);
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
