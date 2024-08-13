@@ -1,20 +1,114 @@
 [
   {
-    "id": "5df805232fa7e75a379b9ecc4e2b42cb",
-    "sport_key": "soccer_denmark_superliga",
-    "sport_title": "Denmark Superliga",
-    "commence_time": "2024-08-11T12:00:20Z",
-    "completed": true,
-    "home_team": "FC Nordsjaelland",
-    "away_team": "Lyngby",
+    "id": "38629fa92cde8ab93e560ce6f466e675",
+    "sport_key": "soccer_spain_la_liga",
+    "sport_title": "La Liga - Spain",
+    "commence_time": "2024-08-15T17:00:00Z",
+    "home_team": "Athletic Bilbao",
+    "away_team": "Getafe",
     "scores": [
       {
-        "name": "FC Nordsjaelland",
+        "name": "Athletic Bilbao",
         "score": "1"
       },
       {
-        "name": "Lyngby",
+        "name": "Getafe",
+        "score": "2"
+      }
+    ],
+    "last_update": "2024-08-12T17:16:40Z"
+  },
+  {
+    "id": "efc7d96ae3cf68744c1aaeb8e0f748f6",
+    "sport_key": "soccer_spain_la_liga",
+    "sport_title": "La Liga - Spain",
+    "commence_time": "2024-08-15T19:30:00Z",
+    "home_team": "Real Betis",
+    "away_team":"Real Betis",
+    "scores": [
+      {
+        "name": "Real Betis",
         "score": "1"
+      },
+      {
+        "name": "Real Betis",
+        "score": "1"
+      }
+    ],
+    "last_update": "2024-08-12T17:16:40Z"
+  },
+  {
+    "id": "0c15bbf0c68e6c649776fde31365e164",
+    "sport_key": "soccer_spain_la_liga",
+    "sport_title": "La Liga - Spain",
+    "commence_time": "2024-08-16T17:00:00Z",
+    "home_team": "Celta Vigo",
+    "away_team": "Alavés",
+    "scores": [
+      {
+        "name": "Celta Vigo",
+        "score": "1"
+      },
+      {
+        "name": "Alavés",
+        "score": "1"
+      }
+    ],
+    "last_update": "2024-08-12T17:16:40Z"
+  },
+  {
+    "id": "47fd546223fafb4833a2daf7317085b0",
+    "sport_key": "soccer_spain_la_liga",
+    "sport_title": "La Liga - Spain",
+    "commence_time": "2024-08-16T19:30:00Z",
+    "home_team": "Las Palmas",
+    "away_team": "Sevilla",
+    "scores": [
+      {
+        "name": "Las Palmas",
+        "score": "1"
+      },
+      {
+        "name": "Sevilla",
+        "score": "1"
+      }
+    ],
+    "last_update": "2024-08-12T17:16:40Z"
+  },
+  {
+    "id": "c6b5de4b32d76b50483b6e548c8de67a",
+    "sport_key": "soccer_spain_la_liga",
+    "sport_title": "La Liga - Spain",
+    "commence_time": "2024-08-17T17:00:00Z",
+    "home_team": "CA Osasuna",
+    "away_team": "Leganés",
+    "scores": [
+      {
+        "name": "CA Osasuna",
+        "score": "1"
+      },
+      {
+        "name": "Leganés",
+        "score": "1"
+      }
+    ],
+    "last_update": "2024-08-12T17:16:40Z"
+  },
+  {
+    "id": "9816d755b9939d75577166d36687b615",
+    "sport_key": "soccer_spain_la_liga",
+    "sport_title": "La Liga - Spain",
+    "commence_time": "2024-08-17T19:30:00Z",
+    "home_team": "Valencia",
+    "away_team": "Barcelona",
+    "scores": [
+      {
+        "name": "Valencia",
+        "score": "1"
+      },
+      {
+        "name": "Barcelona",
+        "score": "5"
       }
     ],
     "last_update": "2024-08-12T17:16:40Z"
