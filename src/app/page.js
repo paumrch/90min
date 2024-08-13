@@ -4,18 +4,22 @@ import { Upcoming } from "@/components/upcoming";
 import { Results } from "@/components/results";
 import { SummarySection } from "@/components/summary-card";
 
+import { API_URL } from "@/app/utils/api";
+
 async function getResults() {
-  const res = await fetch('http://localhost:3000/api/results', { cache: 'no-store' });
+  const res = await fetch(`${API_URL}/api/results`, { cache: "no-store" });
   if (!res.ok) {
-    throw new Error('Failed to fetch results');
+    throw new Error("Failed to fetch results");
   }
   return res.json();
 }
 
 async function getUpcoming() {
-  const res = await fetch('http://localhost:3000/api/upcoming', { cache: 'no-store' });
+  const res = await fetch(`${API_URL}/api/upcoming`, {
+    cache: "no-store",
+  });
   if (!res.ok) {
-    throw new Error('Failed to fetch upcoming matches');
+    throw new Error("Failed to fetch upcoming matches");
   }
   return res.json();
 }

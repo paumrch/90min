@@ -3,10 +3,12 @@ import { Footer } from "@/components/footer";
 import { SummarySection } from "@/components/summary-card";
 import { Prediction } from "@/components/prediction";
 
+import { API_URL } from "@/app/utils/api";
+
 async function getInitialMatches() {
-  const res = await fetch('http://localhost:3000/api/odds', { cache: 'no-store' });
+  const res = await fetch(`${API_URL}/api/odds`, { cache: "no-store" });
   if (!res.ok) {
-    throw new Error('Failed to fetch initial matches');
+    throw new Error("Failed to fetch initial matches");
   }
   return res.json();
 }

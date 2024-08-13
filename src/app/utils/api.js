@@ -1,3 +1,5 @@
+export const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
 export async function fetchOddsData(sport, eventId = null) {
   if (!process.env.ODDS_API_KEY) {
     throw new Error("Missing API key for odds API");
