@@ -4,29 +4,30 @@ import { Upcoming } from "@/components/upcoming";
 import { Results } from "@/components/results";
 import { SummarySection } from "@/components/summary-card";
 
-import { API_URL } from "@/app/utils/api";
-
-async function getResults() {
-  const res = await fetch(`${API_URL}/api/results`, { cache: "no-store" });
-  if (!res.ok) {
-    throw new Error("Failed to fetch results");
+function getBaseURL() {
+  if (typeof window !== "undefined") {
+    return "";
+  } else {
+    return process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : "http://localhost:3000";
   }
-  return res.json();
 }
 
-async function getUpcoming() {
-  const res = await fetch(`${API_URL}/api/upcoming`, {
-    cache: "no-store",
-  });
+async function fetchData(endpoint) {
+  const baseURL = getBaseURL();
+  const res = await fetch(`${baseURL}${endpoint}`, { cache: "no-store" });
   if (!res.ok) {
-    throw new Error("Failed to fetch upcoming matches");
+    throw new Error(`Failed to fetch ${endpoint}`);
   }
   return res.json();
 }
 
 export default async function Home() {
-  const results = await getResults();
-  const upcomingMatches = await getUpcoming();
+  const [results, upcomingMatches] = await Promise.all([
+    fetchData("/api/results"),
+    fetchData("/api/upcoming"),
+  ]);
 
   return (
     <div className="flex min-h-screen w-full flex-col">

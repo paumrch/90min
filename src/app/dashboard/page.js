@@ -3,14 +3,27 @@ import { Footer } from "@/components/footer";
 import { SummarySection } from "@/components/summary-card";
 import { Prediction } from "@/components/prediction";
 
-import { API_URL } from "@/app/utils/api";
+function getBaseURL() {
+  if (typeof window !== "undefined") {
+    return "";
+  } else {
+    return process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : "http://localhost:3000";
+  }
+}
 
-async function getInitialMatches() {
-  const res = await fetch(`${API_URL}/api/odds`, { cache: "no-store" });
+async function fetchData(endpoint) {
+  const baseURL = getBaseURL();
+  const res = await fetch(`${baseURL}${endpoint}`, { cache: "no-store" });
   if (!res.ok) {
-    throw new Error("Failed to fetch initial matches");
+    throw new Error(`Failed to fetch ${endpoint}`);
   }
   return res.json();
+}
+
+async function getInitialMatches() {
+  return fetchData("/api/odds");
 }
 
 export default async function Dashboard() {
