@@ -1,5 +1,7 @@
 import { ThemeProvider } from "@/components/theme-provider";
 
+import { Toaster } from "@/components/ui/toaster";
+
 import { Figtree } from "next/font/google";
 import "./globals.css";
 
@@ -17,11 +19,12 @@ export default function RootLayout({ children }) {
         {" "}
         <ThemeProvider
           attribute="class"
-          defaultTheme="light"
+          defaultTheme="dark"
           enableSystem
           disableTransitionOnChange
         >
           {children}
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>

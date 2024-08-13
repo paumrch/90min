@@ -21,7 +21,10 @@ export async function fetchData(endpoint) {
     }
 
     const data = await res.json();
-    console.log(`Data fetched successfully from ${endpoint}`);
+    console.log(
+      `Data fetched successfully from ${endpoint}:`,
+      JSON.stringify(data, null, 2)
+    );
     return data;
   } catch (error) {
     console.error(`Error fetching ${endpoint}:`, error);
@@ -34,12 +37,21 @@ export const dynamic = "force-dynamic";
 export default async function Dashboard() {
   const initialMatches = await fetchData("/api/odds");
 
+  const serializedMatches = initialMatches
+    ? JSON.parse(JSON.stringify(initialMatches))
+    : [];
+
+  console.log(
+    "Serialized matches:",
+    JSON.stringify(serializedMatches, null, 2)
+  );
+
   return (
     <div className="flex min-h-screen w-full flex-col">
       <Navbar />
       <main className="flex-1 container mx-auto px-4 py-8 space-y-8">
         <SummarySection />
-        <Prediction initialMatches={initialMatches} />
+        <Prediction initialMatches={serializedMatches} />
       </main>
       <Footer />
     </div>

@@ -10,7 +10,7 @@ function SummaryCard({ title, value, description }) {
       </CardHeader>
       <CardContent>
         <div className="text-2xl font-bold">{value}</div>
-        <p className="text-xs text-muted-foreground">{description}</p>
+        <p className="text-xs text-muted-foreground mt-1">{description}</p>
       </CardContent>
     </Card>
   );
@@ -25,15 +25,11 @@ export function SummarySection() {
         description="de acierto"
       />
       <SummaryCard
-        title="Últimos 7 Días"
-        value="70%"
-        description="de acierto"
-      />{" "}
-      <SummaryCard
-        title="Últimos 7 Días"
-        value="70%"
+        title="Últimos 30 Días"
+        value="65%"
         description="de acierto"
       />
+      <SummaryCard title="Total" value="68%" description="de acierto global" />
     </div>
   );
 }

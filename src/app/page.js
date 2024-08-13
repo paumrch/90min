@@ -6,11 +6,11 @@ import { SummarySection } from "@/components/summary-card";
 import { API_BASE_URL } from "@/app/utils/config";
 
 async function fetchData(endpoint) {
-  const res = await fetch(`${API_BASE_URL}${endpoint}`, { 
+  const res = await fetch(`${API_BASE_URL}${endpoint}`, {
     cache: "no-store",
     headers: {
-      'Accept': 'application/json'
-    }
+      Accept: "application/json",
+    },
   });
   if (!res.ok) {
     throw new Error(`Failed to fetch ${endpoint}`);
@@ -31,7 +31,7 @@ export default async function Home() {
       <Navbar />
       <main className="flex-1 container mx-auto px-4 py-8 space-y-8">
         <SummarySection />
-        <div className="grid gap-6 lg:grid-cols-2 xl:grid-cols-3">
+        <div className="grid gap-6 md:grid-cols-2">
           <Upcoming initialUpcoming={upcomingMatches} />
           <Results initialResults={results} />
         </div>
