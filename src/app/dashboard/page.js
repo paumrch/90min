@@ -4,17 +4,29 @@ import { SummarySection } from "@/components/summary-card";
 import { Prediction } from "@/components/prediction";
 import { API_BASE_URL } from "@/app/utils/config";
 
-async function fetchData(endpoint) {
-  const res = await fetch(`${API_BASE_URL}${endpoint}`, {
-    cache: "no-store",
-    headers: {
-      Accept: "application/json",
-    },
-  });
-  if (!res.ok) {
-    throw new Error(`Failed to fetch ${endpoint}`);
+export async function fetchData(endpoint) {
+  const url = `${API_BASE_URL}${endpoint}`;
+  console.log(`Fetching data from: ${url}`);
+
+  try {
+    const res = await fetch(url, {
+      cache: "no-store",
+      headers: {
+        Accept: "application/json",
+      },
+    });
+
+    if (!res.ok) {
+      throw new Error(`HTTP error! status: ${res.status}`);
+    }
+
+    const data = await res.json();
+    console.log(`Data fetched successfully from ${endpoint}`);
+    return data;
+  } catch (error) {
+    console.error(`Error fetching ${endpoint}:`, error);
+    return null;
   }
-  return res.json();
 }
 
 export const dynamic = "force-dynamic";
