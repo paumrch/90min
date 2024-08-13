@@ -23,6 +23,8 @@ async function fetchData(endpoint) {
   return res.json();
 }
 
+export const dynamic = "force-dynamic";
+
 export default async function Home() {
   const [results, upcomingMatches] = await Promise.all([
     fetchData("/api/results"),

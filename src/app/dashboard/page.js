@@ -26,6 +26,8 @@ async function getInitialMatches() {
   return fetchData("/api/odds");
 }
 
+export const dynamic = "force-dynamic";
+
 export default async function Dashboard() {
   const initialMatches = await getInitialMatches();
 
