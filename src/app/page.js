@@ -3,20 +3,15 @@ import { Footer } from "@/components/footer";
 import { Upcoming } from "@/components/upcoming";
 import { Results } from "@/components/results";
 import { SummarySection } from "@/components/summary-card";
-
-function getBaseURL() {
-  if (typeof window !== "undefined") {
-    return "";
-  } else {
-    return process.env.VERCEL_URL
-      ? `https://${process.env.VERCEL_URL}`
-      : "http://localhost:3000";
-  }
-}
+import { API_BASE_URL } from "@/app/utils/config";
 
 async function fetchData(endpoint) {
-  const baseURL = getBaseURL();
-  const res = await fetch(`${baseURL}${endpoint}`, { cache: "no-store" });
+  const res = await fetch(`${API_BASE_URL}${endpoint}`, { 
+    cache: "no-store",
+    headers: {
+      'Accept': 'application/json'
+    }
+  });
   if (!res.ok) {
     throw new Error(`Failed to fetch ${endpoint}`);
   }

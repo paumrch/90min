@@ -2,34 +2,25 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { SummarySection } from "@/components/summary-card";
 import { Prediction } from "@/components/prediction";
-
-function getBaseURL() {
-  if (typeof window !== "undefined") {
-    return "";
-  } else {
-    return process.env.VERCEL_URL
-      ? `https://${process.env.VERCEL_URL}`
-      : "http://localhost:3000";
-  }
-}
+import { API_BASE_URL } from "@/app/utils/config";
 
 async function fetchData(endpoint) {
-  const baseURL = getBaseURL();
-  const res = await fetch(`${baseURL}${endpoint}`, { cache: "no-store" });
+  const res = await fetch(`${API_BASE_URL}${endpoint}`, {
+    cache: "no-store",
+    headers: {
+      Accept: "application/json",
+    },
+  });
   if (!res.ok) {
     throw new Error(`Failed to fetch ${endpoint}`);
   }
   return res.json();
 }
 
-async function getInitialMatches() {
-  return fetchData("/api/odds");
-}
-
 export const dynamic = "force-dynamic";
 
 export default async function Dashboard() {
-  const initialMatches = await getInitialMatches();
+  const initialMatches = await fetchData("/api/odds");
 
   return (
     <div className="flex min-h-screen w-full flex-col">
