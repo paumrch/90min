@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -14,17 +14,13 @@ import {
 import { useToast } from "@/components/ui/use-toast";
 
 export function Prediction({ initialMatches }) {
-  const [matches, setMatches] = useState([]);
-  const [isClient, setIsClient] = useState(false);
+  const [matches, setMatches] = useState(initialMatches);
+  const [isPublishing, setIsPublishing] = useState(false);
+  const [isPublished, setIsPublished] = useState(false);
   const { toast } = useToast();
 
   useEffect(() => {
-    setIsClient(true);
-    if (
-      initialMatches &&
-      Array.isArray(initialMatches) &&
-      initialMatches.length > 0
-    ) {
+    if (initialMatches && Array.isArray(initialMatches)) {
       const processedMatches = initialMatches.map((match) => {
         const livescoreBet = match.bookmakers?.find(
           (b) => b.key === "livescorebet_eu"
@@ -40,21 +36,18 @@ export function Prediction({ initialMatches }) {
         )?.price;
 
         return {
-          id: match.id,
-          home_team: match.home_team,
-          away_team: match.away_team,
-          commence_time: match.commence_time,
-          sport_title: match.sport_title,
-          overOdds,
-          underOdds,
+          ...match,
+          overOdds: overOdds || null,
+          underOdds: underOdds || null,
           selectedPrediction: null,
+          selectedOdds: null,
         };
       });
       setMatches(processedMatches);
     }
   }, [initialMatches]);
 
-  const handlePredictionSelect = useCallback((matchId, prediction, odds) => {
+  const handlePredictionSelect = (matchId, prediction, odds) => {
     setMatches((prevMatches) =>
       prevMatches.map((match) =>
         match.id === matchId
@@ -68,9 +61,10 @@ export function Prediction({ initialMatches }) {
           : match
       )
     );
-  }, []);
+  };
 
-  const handleSavePredictions = async () => {
+  const handlePublishPredictions = async () => {
+    setIsPublishing(true);
     try {
       const predictionsArray = matches
         .filter((match) => match.selectedPrediction)
@@ -90,6 +84,7 @@ export function Prediction({ initialMatches }) {
           description: "No has seleccionado ninguna predicción.",
           variant: "destructive",
         });
+        setIsPublishing(false);
         return;
       }
 
@@ -103,43 +98,41 @@ export function Prediction({ initialMatches }) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
+      await new Promise((resolve) => setTimeout(resolve, 1000)); // Espera mínima de 1 segundo
+
       const result = await response.json();
       console.log("API Response:", result);
 
-      // Mostrar alerta de éxito
       toast({
         title: "Éxito",
-        description: "Las predicciones se han guardado correctamente.",
+        description: "Las predicciones se han publicado correctamente.",
         variant: "default",
       });
 
-      // Limpiar las selecciones después de guardar
-      setMatches((prevMatches) =>
-        prevMatches.map((match) => ({
-          ...match,
-          selectedPrediction: null,
-          selectedOdds: null,
-        }))
-      );
+      setIsPublished(true);
+      setTimeout(() => {
+        setIsPublished(false);
+        setMatches((prevMatches) =>
+          prevMatches.filter((match) => !match.selectedPrediction)
+        );
+      }, 1000);
     } catch (err) {
-      console.error("Error al guardar predicciones:", err);
+      console.error("Error al publicar predicciones:", err);
       toast({
         title: "Error",
         description:
-          "No se pudieron guardar las predicciones. Por favor, intenta de nuevo.",
+          "No se pudieron publicar las predicciones. Por favor, intenta de nuevo.",
         variant: "destructive",
       });
+    } finally {
+      setIsPublishing(false);
     }
   };
-
-  if (!isClient) {
-    return <p>Cargando predicciones...</p>;
-  }
 
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Seleccionar Predicciones</CardTitle>
+        <CardTitle>Próximos Partidos</CardTitle>
       </CardHeader>
       <CardContent>
         {matches.length === 0 ? (
@@ -150,8 +143,8 @@ export function Prediction({ initialMatches }) {
               <TableHeader>
                 <TableRow>
                   <TableHead className="w-1/2">Partido</TableHead>
-                  <TableHead className="w-1/4">Over 2.5</TableHead>
-                  <TableHead className="w-1/4">Under 2.5</TableHead>
+                  <TableHead className="w-1/4 text-center">Over 2.5</TableHead>
+                  <TableHead className="w-1/4 text-center">Under 2.5</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -200,9 +193,21 @@ export function Prediction({ initialMatches }) {
                 ))}
               </TableBody>
             </Table>
-            <Button onClick={handleSavePredictions} className="mt-4">
-              Guardar Predicciones
-            </Button>
+            <div className="flex justify-end mt-4">
+              <div className="w-1/4">
+                <Button
+                  onClick={handlePublishPredictions}
+                  disabled={isPublishing || isPublished}
+                  className="w-full"
+                >
+                  {isPublishing
+                    ? "Publicando..."
+                    : isPublished
+                    ? "Publicado"
+                    : "Publicar"}
+                </Button>
+              </div>
+            </div>
           </>
         )}
       </CardContent>

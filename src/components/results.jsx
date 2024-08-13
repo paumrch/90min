@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { ArrowUpRight, CheckCircle2, XCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -22,6 +22,15 @@ import {
 import Link from "next/link";
 
 export function Results({ initialResults }) {
+  const [results, setResults] = useState(initialResults);
+
+  useEffect(() => {
+    const validResults = initialResults.filter(
+      (result) => result.prediction && result.prediction !== "ANULADA"
+    );
+    setResults(validResults);
+  }, [initialResults]);
+
   return (
     <Card className="h-full">
       <CardHeader className="flex flex-row items-center justify-between">
@@ -51,7 +60,7 @@ export function Results({ initialResults }) {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {initialResults.map((match) => (
+            {results.map((match) => (
               <TableRow key={match.id}>
                 <TableCell>
                   <div className="font-medium">{`${match.home_team} vs ${match.away_team}`}</div>

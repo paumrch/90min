@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -22,6 +22,15 @@ import {
 import { Badge } from "@/components/ui/badge";
 
 export function Upcoming({ initialUpcoming }) {
+  const [upcomingMatches, setUpcomingMatches] = useState(initialUpcoming);
+
+  useEffect(() => {
+    const validMatches = initialUpcoming.filter(
+      (match) => match.prediction && match.prediction !== "ANULADA"
+    );
+    setUpcomingMatches(validMatches);
+  }, [initialUpcoming]);
+
   const formatOdds = (odds) => {
     if (typeof odds === "number") {
       return odds.toFixed(2);
@@ -59,47 +68,53 @@ export function Upcoming({ initialUpcoming }) {
         </Button>
       </CardHeader>
       <CardContent>
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead className="font-semibold w-1/2">Partido</TableHead>
-              <TableHead className="font-semibold w-1/4 text-right">Predicción</TableHead>
-              <TableHead className="font-semibold w-1/4 text-right">Cuota</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {initialUpcoming.map((match) => (
-              <TableRow key={match.id}>
-                <TableCell>
-                  <div className="font-medium">{`${match.home_team} vs ${match.away_team}`}</div>
-                  <div className="text-sm text-muted-foreground">
-                    {formatDate(match.start_time)}
-                  </div>
-                </TableCell>
-                <TableCell className="text-right">
-                  <Badge 
-                    variant="secondary"
-                    className="w-24 justify-center inline-flex"
-                  >
-                    <span className="truncate">
-                      {match.prediction || "N/A"}
-                    </span>
-                  </Badge>
-                </TableCell>
-                <TableCell className="text-right">
-                  <Badge 
-                    variant="outline"
-                    className="w-16 justify-center inline-flex"
-                  >
-                    <span className="truncate">
-                      {formatOdds(match.odds)}
-                    </span>
-                  </Badge>
-                </TableCell>
+        {upcomingMatches.length === 0 ? (
+          <p>No hay partidos próximos con predicciones.</p>
+        ) : (
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead className="font-semibold w-1/2">Partido</TableHead>
+                <TableHead className="font-semibold w-1/4 text-right">
+                  Predicción
+                </TableHead>
+                <TableHead className="font-semibold w-1/4 text-right">
+                  Cuota
+                </TableHead>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+            </TableHeader>
+            <TableBody>
+              {upcomingMatches.map((match) => (
+                <TableRow key={match.id}>
+                  <TableCell>
+                    <div className="font-medium">{`${match.home_team} vs ${match.away_team}`}</div>
+                    <div className="text-sm text-muted-foreground">
+                      {formatDate(match.start_time)}
+                    </div>
+                  </TableCell>
+                  <TableCell className="text-right">
+                    <Badge
+                      variant="secondary"
+                      className="w-20 justify-center inline-flex"
+                    >
+                      <span className="truncate">
+                        {match.prediction || "N/A"}
+                      </span>
+                    </Badge>
+                  </TableCell>
+                  <TableCell className="text-right">
+                    <Badge
+                      variant="outline"
+                      className="w-12 justify-center inline-flex"
+                    >
+                      <span className="truncate">{formatOdds(match.odds)}</span>
+                    </Badge>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        )}
       </CardContent>
     </Card>
   );

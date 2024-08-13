@@ -2,11 +2,11 @@ import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { SummarySection } from "@/components/summary-card";
 import { Prediction } from "@/components/prediction";
+import { SelectedPredictions } from "@/components/selected";
 import { API_BASE_URL } from "@/app/utils/config";
 
-export async function fetchData(endpoint) {
+async function fetchData(endpoint) {
   const url = `${API_BASE_URL}${endpoint}`;
-  console.log(`Fetching data from: ${url}`);
 
   try {
     const res = await fetch(url, {
@@ -21,10 +21,6 @@ export async function fetchData(endpoint) {
     }
 
     const data = await res.json();
-    console.log(
-      `Data fetched successfully from ${endpoint}:`,
-      JSON.stringify(data, null, 2)
-    );
     return data;
   } catch (error) {
     console.error(`Error fetching ${endpoint}:`, error);
@@ -35,15 +31,13 @@ export async function fetchData(endpoint) {
 export const dynamic = "force-dynamic";
 
 export default async function Dashboard() {
-  const initialMatches = await fetchData("/api/odds");
+  const initialMatches = (await fetchData("/api/odds")) || [];
+  const initialSelectedPredictions =
+    (await fetchData("/api/predictions")) || [];
 
-  const serializedMatches = initialMatches
-    ? JSON.parse(JSON.stringify(initialMatches))
-    : [];
-
-  console.log(
-    "Serialized matches:",
-    JSON.stringify(serializedMatches, null, 2)
+  const availableMatches = initialMatches.filter(
+    (match) =>
+      !initialSelectedPredictions.some((pred) => pred.api_id === match.id)
   );
 
   return (
@@ -51,7 +45,10 @@ export default async function Dashboard() {
       <Navbar />
       <main className="flex-1 container mx-auto px-4 py-8 space-y-8">
         <SummarySection />
-        <Prediction initialMatches={serializedMatches} />
+        <Prediction initialMatches={availableMatches} />
+        <SelectedPredictions
+          initialSelectedPredictions={initialSelectedPredictions}
+        />
       </main>
       <Footer />
     </div>

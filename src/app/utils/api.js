@@ -22,8 +22,6 @@ export async function fetchOddsData(sport, eventId = null) {
 
   url.searchParams.append("apiKey", process.env.ODDS_API_KEY);
 
-  console.log("Fetching from URL:", url.toString());
-
   try {
     const response = await fetch(url.toString(), {
       next: { revalidate: 3600 },

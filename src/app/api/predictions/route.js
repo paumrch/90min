@@ -1,30 +1,22 @@
 import { NextResponse } from "next/server";
 import { query } from "@/lib/db";
 
+export async function GET() {
+  try {
+    const { rows } = await query(
+      `SELECT * FROM matches WHERE prediction IS NOT NULL`
+    );
+    return NextResponse.json(rows);
+  } catch (error) {
+    console.error("Error fetching predictions:", error);
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+}
+
 export async function POST(request) {
   try {
     const body = await request.json();
-    console.log("Received body:", JSON.stringify(body, null, 2));
-
-    let predictions;
-
-    if (Array.isArray(body.predictions)) {
-      predictions = body.predictions;
-    } else if (typeof body === "object" && Object.keys(body).length > 0) {
-      predictions = Object.entries(body).map(([api_id, data]) => ({
-        api_id,
-        ...data,
-      }));
-    } else {
-      throw new Error(
-        "Invalid input: predictions must be an array or an object"
-      );
-    }
-
-    console.log(
-      "Processing predictions:",
-      JSON.stringify(predictions, null, 2)
-    );
+    const { predictions } = body;
 
     for (const prediction of predictions) {
       await query(
@@ -38,10 +30,10 @@ export async function POST(request) {
         updated_at = CURRENT_TIMESTAMP`,
         [
           prediction.api_id,
-          prediction.home_team || "",
-          prediction.away_team || "",
-          prediction.start_time || new Date(),
-          prediction.league || "",
+          prediction.home_team,
+          prediction.away_team,
+          prediction.start_time,
+          prediction.league,
           prediction.prediction,
           prediction.odds,
           "upcoming",
@@ -49,7 +41,7 @@ export async function POST(request) {
       );
     }
 
-    return NextResponse.json({ message: "Predictions saved successfully" });
+    return NextResponse.json({ message: "Predicciones guardadas con éxito" });
   } catch (error) {
     console.error("Error saving predictions:", error);
     return NextResponse.json({ error: error.message }, { status: 500 });

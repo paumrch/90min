@@ -4,7 +4,6 @@ import { getData } from "@/lib/response";
 export async function GET() {
   try {
     const data = getData();
-    console.log("Odds data fetched:", JSON.stringify(data, null, 2));
 
     const matches = Array.isArray(data) ? data : [];
 
