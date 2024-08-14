@@ -1,5 +1,3 @@
-import { Navbar } from "@/components/navbar";
-import { Footer } from "@/components/footer";
 import { SummarySection } from "@/components/summary-card";
 import { Prediction } from "@/components/prediction";
 import { SelectedPredictions } from "@/components/selected";
@@ -42,7 +40,6 @@ export default async function Dashboard() {
 
   return (
     <div className="flex min-h-screen w-full flex-col">
-      <Navbar />
       <main className="flex-1 container mx-auto px-4 py-8 space-y-8">
         <SummarySection />
         <Prediction initialMatches={availableMatches} />
@@ -50,7 +47,6 @@ export default async function Dashboard() {
           initialSelectedPredictions={initialSelectedPredictions}
         />
       </main>
-      <Footer />
     </div>
   );
 }

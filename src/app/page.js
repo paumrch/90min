@@ -1,5 +1,3 @@
-import { Navbar } from "@/components/navbar";
-import { Footer } from "@/components/footer";
 import { Upcoming } from "@/components/upcoming";
 import { Results } from "@/components/results";
 import { SummarySection } from "@/components/summary-card";
@@ -28,7 +26,6 @@ export default async function Home() {
 
   return (
     <div className="flex min-h-screen w-full flex-col">
-      <Navbar />
       <main className="flex-1 container mx-auto px-4 py-8 space-y-8">
         <SummarySection />
         <div className="grid gap-6 md:grid-cols-2">
@@ -36,7 +33,6 @@ export default async function Home() {
           <Results initialResults={results} />
         </div>
       </main>
-      <Footer />
     </div>
   );
 }

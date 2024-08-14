@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -18,34 +18,6 @@ export function Prediction({ initialMatches }) {
   const [isPublishing, setIsPublishing] = useState(false);
   const [isPublished, setIsPublished] = useState(false);
   const { toast } = useToast();
-
-  useEffect(() => {
-    if (initialMatches && Array.isArray(initialMatches)) {
-      const processedMatches = initialMatches.map((match) => {
-        const livescoreBet = match.bookmakers?.find(
-          (b) => b.key === "livescorebet_eu"
-        );
-        const totalsMarket = livescoreBet?.markets?.find(
-          (m) => m.key === "totals"
-        );
-        const overOdds = totalsMarket?.outcomes?.find(
-          (o) => o.name === "Over"
-        )?.price;
-        const underOdds = totalsMarket?.outcomes?.find(
-          (o) => o.name === "Under"
-        )?.price;
-
-        return {
-          ...match,
-          overOdds: overOdds || null,
-          underOdds: underOdds || null,
-          selectedPrediction: null,
-          selectedOdds: null,
-        };
-      });
-      setMatches(processedMatches);
-    }
-  }, [initialMatches]);
 
   const handlePredictionSelect = (matchId, prediction, odds) => {
     setMatches((prevMatches) =>
@@ -167,7 +139,7 @@ export function Prediction({ initialMatches }) {
                         }
                         className="w-full"
                       >
-                        {match.overOdds ? match.overOdds.toFixed(2) : "N/A"}
+                        {match.overOdds.toFixed(2)}
                       </Button>
                     </TableCell>
                     <TableCell>
@@ -186,7 +158,7 @@ export function Prediction({ initialMatches }) {
                         }
                         className="w-full"
                       >
-                        {match.underOdds ? match.underOdds.toFixed(2) : "N/A"}
+                        {match.underOdds.toFixed(2)}
                       </Button>
                     </TableCell>
                   </TableRow>

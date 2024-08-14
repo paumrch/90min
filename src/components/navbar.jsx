@@ -5,29 +5,10 @@ import Image from "next/image";
 import { Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { useEffect, useState } from "react";
+import { useTheme } from "next-themes";
 
 export function Navbar() {
-  const [theme, setTheme] = useState("light");
-
-  useEffect(() => {
-    const updateTheme = () => {
-      const newTheme = document.documentElement.getAttribute("data-theme");
-      setTheme(newTheme === "dark" ? "dark" : "light");
-    };
-
-    // Configurar el tema inicial
-    updateTheme();
-
-    // Observar cambios en el atributo data-theme
-    const observer = new MutationObserver(updateTheme);
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["data-theme"],
-    });
-
-    return () => observer.disconnect();
-  }, []);
+  const { theme, resolvedTheme } = useTheme();
 
   return (
     <header className="border-b">
@@ -35,10 +16,18 @@ export function Navbar() {
         <div className="flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
             <Image
-              src={theme === "light" ? "/logoWhite.svg" : "/logoBlack.svg"}
-              alt="Acme Inc Logo"
+              src="/logoBlack.svg"
+              alt="Acme Inc Logo (Light)"
               width={40}
               height={40}
+              className="dark:hidden"
+            />
+            <Image
+              src="/logoWhite.svg"
+              alt="Acme Inc Logo (Dark)"
+              width={40}
+              height={40}
+              className="hidden dark:block"
             />
           </Link>
           <nav className="hidden md:flex md:items-center md:gap-6">
@@ -63,10 +52,18 @@ export function Navbar() {
               <nav className="grid gap-6 text-lg font-medium">
                 <Link href="/" className="flex items-center gap-2">
                   <Image
-                    src={theme === "light" ? "/logoWhite.svg" : "/logoBlack.svg"}
-                    alt="Acme Inc Logo"
+                    src="/logoBlack.svg"
+                    alt="Acme Inc Logo (Light)"
                     width={40}
                     height={40}
+                    className="dark:hidden"
+                  />
+                  <Image
+                    src="/logoWhite.svg"
+                    alt="Acme Inc Logo (Dark)"
+                    width={40}
+                    height={40}
+                    className="hidden dark:block"
                   />
                 </Link>
                 <Link href="/" className="hover:text-foreground">
