@@ -10,7 +10,7 @@ import "./globals.css";
 const figtree = Figtree({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "90 Minutes - La Liga Predictions",
+  title: "90 Minutes — La Liga Predictions",
   description:
     "90 Minutes is your go-to app for accurate predictions on Over and Under markets in the Spanish La Liga for the 2024-2025 season. Specializing in total goals predictions, this app provides expert insights for every match.",
   keywords:
