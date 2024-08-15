@@ -4,7 +4,8 @@ import { useState, useEffect } from "react";
 import { Upcoming } from "@/components/upcoming";
 import { Results } from "@/components/results";
 import { SummarySection } from "@/components/summary-card";
-import { API_BASE_URL } from "@/app/utils/config";
+
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || '';
 
 async function fetchData(endpoint) {
   try {

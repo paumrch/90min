@@ -1,9 +1,16 @@
 import { NextResponse } from "next/server";
 import { fetchOddsData } from "@/app/utils/api";
+import mockData from "@/lib/data.json";
 
 export async function GET() {
   try {
-    const data = await fetchOddsData("soccer_spain_la_liga");
+    let data;
+    if (process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true") {
+      data = mockData;
+    } else {
+      data = await fetchOddsData("soccer_spain_la_liga");
+    }
+
     const filteredMatches = data
       .filter((match) => {
         const livescoreBet = match.bookmakers?.find(

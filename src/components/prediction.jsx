@@ -14,15 +14,19 @@ import {
 import { useToast } from "@/components/ui/use-toast";
 import { Loader2 } from "lucide-react";
 
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "";
+
 export function Prediction({ initialMatches }) {
   const [matches, setMatches] = useState([]);
   const [isPublishing, setIsPublishing] = useState(false);
   const [isPublished, setIsPublished] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
   const { toast } = useToast();
 
   useEffect(() => {
     if (initialMatches && initialMatches.length > 0) {
+      console.log("Initial matches in Prediction:", initialMatches);
       const uniqueMatches = initialMatches.reduce((acc, match) => {
         if (!acc.some((m) => m.id === match.id)) {
           acc.push(match);
@@ -34,6 +38,10 @@ export function Prediction({ initialMatches }) {
         (a, b) => new Date(a.commence_time) - new Date(b.commence_time)
       );
       setMatches(sortedMatches);
+    } else {
+      setError(
+        "No se pudieron cargar los partidos. Por favor, intenta de nuevo más tarde."
+      );
     }
     setIsLoading(false);
   }, [initialMatches]);
@@ -79,7 +87,7 @@ export function Prediction({ initialMatches }) {
         return;
       }
 
-      const response = await fetch("/api/predictions", {
+      const response = await fetch(`${API_BASE_URL}/api/predictions`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ predictions: predictionsArray }),
@@ -138,6 +146,8 @@ export function Prediction({ initialMatches }) {
           <div className="flex justify-center items-center h-32">
             <Loader2 className="h-8 w-8 animate-spin" />
           </div>
+        ) : error ? (
+          <p className="text-red-500">{error}</p>
         ) : matches.length === 0 ? (
           <p>No matches available.</p>
         ) : (
