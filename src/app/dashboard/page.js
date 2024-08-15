@@ -1,22 +1,23 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 import { Prediction } from "@/components/prediction";
 import { SummarySection } from "@/components/summary-card";
 import { SelectedPredictions } from "@/components/selected";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Loader2 } from "lucide-react";
 
 function Login({ onLogin }) {
-  const [password, setPassword] = useState('');
+  const [password, setPassword] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (password === process.env.NEXT_PUBLIC_DASHBOARD_PASSWORD) {
       onLogin();
     } else {
-      alert('Incorrect password');
+      alert("Incorrect password");
     }
   };
 
@@ -44,16 +45,19 @@ function Login({ onLogin }) {
 
 export default function Dashboard() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState({
     initialMatches: [],
     stats: { effectiveness: { percentage: 0, hits: 0, total: 0, profit: 0 } },
-    initialSelectedPredictions: []
+    initialSelectedPredictions: [],
   });
 
   useEffect(() => {
-    const authStatus = localStorage.getItem('dashboardAuth');
-    if (authStatus === 'true') {
+    const authStatus = localStorage.getItem("dashboardAuth");
+    if (authStatus === "true") {
       setIsAuthenticated(true);
+    } else {
+      setIsLoading(false);
     }
   }, []);
 
@@ -64,22 +68,26 @@ export default function Dashboard() {
   }, [isAuthenticated]);
 
   const fetchData = async () => {
+    setIsLoading(true);
     try {
-      const [initialMatches, stats, initialSelectedPredictions] = await Promise.all([
-        fetch('/api/odds').then(res => res.json()),
-        fetch('/api/stats').then(res => res.json()),
-        fetch('/api/predictions').then(res => res.json())
-      ]);
+      const [initialMatches, stats, initialSelectedPredictions] =
+        await Promise.all([
+          fetch("/api/odds").then((res) => res.json()),
+          fetch("/api/stats").then((res) => res.json()),
+          fetch("/api/predictions").then((res) => res.json()),
+        ]);
 
       setData({ initialMatches, stats, initialSelectedPredictions });
     } catch (error) {
       console.error("Error fetching data:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const handleLogin = () => {
     setIsAuthenticated(true);
-    localStorage.setItem('dashboardAuth', 'true');
+    localStorage.setItem("dashboardAuth", "true");
   };
 
   if (!isAuthenticated) {
@@ -90,13 +98,23 @@ export default function Dashboard() {
     );
   }
 
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <Loader2 className="h-8 w-8 animate-spin" />
+      </div>
+    );
+  }
+
   return (
     <div className="flex min-h-screen w-full flex-col">
       <main className="flex-1 container mx-auto px-4 py-8 space-y-8">
         <SummarySection effectiveness={data.stats.effectiveness} />
         <div className="grid gap-6 md:grid-cols-2">
           <Prediction initialMatches={data.initialMatches} />
-          <SelectedPredictions initialSelectedPredictions={data.initialSelectedPredictions} />
+          <SelectedPredictions
+            initialSelectedPredictions={data.initialSelectedPredictions}
+          />
         </div>
       </main>
     </div>

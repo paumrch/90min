@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -12,12 +12,21 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useToast } from "@/components/ui/use-toast";
+import { Loader2 } from "lucide-react";
 
 export function Prediction({ initialMatches }) {
-  const [matches, setMatches] = useState(initialMatches);
+  const [matches, setMatches] = useState([]);
   const [isPublishing, setIsPublishing] = useState(false);
   const [isPublished, setIsPublished] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const { toast } = useToast();
+
+  useEffect(() => {
+    if (initialMatches && initialMatches.length > 0) {
+      setMatches(initialMatches);
+    }
+    setIsLoading(false);
+  }, [initialMatches]);
 
   const handlePredictionSelect = (matchId, prediction, odds) => {
     setMatches((prevMatches) =>
@@ -106,7 +115,11 @@ export function Prediction({ initialMatches }) {
         <CardTitle>Upcoming Matches</CardTitle>
       </CardHeader>
       <CardContent>
-        {matches.length === 0 ? (
+        {isLoading ? (
+          <div className="flex justify-center items-center h-32">
+            <Loader2 className="h-8 w-8 animate-spin" />
+          </div>
+        ) : matches.length === 0 ? (
           <p>No matches available.</p>
         ) : (
           <>
