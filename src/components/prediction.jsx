@@ -25,8 +25,8 @@ export function Prediction({ initialMatches }) {
   const { toast } = useToast();
 
   useEffect(() => {
+    console.log("Prediction component - initialMatches:", initialMatches);
     if (initialMatches && initialMatches.length > 0) {
-      console.log("Initial matches in Prediction:", initialMatches);
       const uniqueMatches = initialMatches.reduce((acc, match) => {
         if (!acc.some((m) => m.id === match.id)) {
           acc.push(match);
@@ -45,22 +45,6 @@ export function Prediction({ initialMatches }) {
     }
     setIsLoading(false);
   }, [initialMatches]);
-
-  const handlePredictionSelect = (matchId, prediction, odds) => {
-    setMatches((prevMatches) =>
-      prevMatches.map((match) =>
-        match.id === matchId
-          ? {
-              ...match,
-              selectedPrediction:
-                match.selectedPrediction === prediction ? null : prediction,
-              selectedOdds:
-                match.selectedPrediction === prediction ? null : odds,
-            }
-          : match
-      )
-    );
-  };
 
   const handlePublishPredictions = async () => {
     setIsPublishing(true);
