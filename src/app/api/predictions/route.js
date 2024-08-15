@@ -2,10 +2,12 @@ import { NextResponse } from "next/server";
 import { query } from "@/lib/db";
 
 export async function GET() {
+  console.log("GET /api/predictions - Start");
   try {
     const { rows } = await query(
       `SELECT * FROM matches WHERE prediction IS NOT NULL`
     );
+    console.log("Predictions retrieved:", rows.length);
     return NextResponse.json(rows);
   } catch (error) {
     console.error("Error fetching predictions:", error);
@@ -14,6 +16,7 @@ export async function GET() {
 }
 
 export async function POST(request) {
+  console.log("POST /api/predictions - Start");
   try {
     const body = await request.json();
     const { predictions } = body;

@@ -45,10 +45,10 @@ export function Upcoming({ initialUpcoming }) {
     setUpcomingMatches(initialUpcoming);
   }, [initialUpcoming]);
 
-  const filteredMatches = upcomingMatches.filter(
+  const filteredMatches = initialUpcoming.filter(
     (match) => match.prediction && match.prediction !== "VOID"
   );
-
+  
   return (
     <Card className="h-full">
       <CardHeader className="flex flex-row items-center justify-between">

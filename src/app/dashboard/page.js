@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Head from "next/head";
 import { Prediction } from "@/components/prediction";
 import { SummarySection } from "@/components/summary-card";
 import { SelectedPredictions } from "@/components/selected";
@@ -9,7 +8,8 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Loader2 } from "lucide-react";
-import { API_BASE_URL } from "@/app/utils/api";
+
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 function Login({ onLogin }) {
   const [password, setPassword] = useState("");
@@ -98,6 +98,27 @@ export default function Dashboard() {
       const initialSelectedPredictions =
         await initialSelectedPredictionsResponse.json();
 
+      // Validación adicional para asegurar la consistencia de los datos
+      if (!Array.isArray(initialMatches)) {
+        console.error("initialMatches es inválido:", initialMatches);
+        throw new Error("La API no devolvió un array para initialMatches.");
+      }
+
+      if (typeof stats !== "object" || !stats.effectiveness) {
+        console.error("Stats es inválido:", stats);
+        throw new Error("Estructura de datos de stats inválida.");
+      }
+
+      if (!Array.isArray(initialSelectedPredictions)) {
+        console.error(
+          "initialSelectedPredictions es inválido:",
+          initialSelectedPredictions
+        );
+        throw new Error(
+          "La API no devolvió un array para initialSelectedPredictions."
+        );
+      }
+
       console.log("Fetched initial matches:", initialMatches);
       console.log("Fetched stats:", stats);
       console.log(
@@ -182,22 +203,17 @@ export default function Dashboard() {
   );
 
   return (
-    <>
-      <Head>
-        <meta name="robots" content="noindex, nofollow" />
-      </Head>
-      <div className="flex min-h-screen w-full flex-col">
-        <main className="flex-1 container mx-auto px-4 py-8 space-y-8">
-          <SummarySection effectiveness={data.stats.effectiveness} />
-          <div className="grid gap-6 md:grid-cols-2">
-            <Prediction initialMatches={availableMatches} />
-            <SelectedPredictions
-              initialSelectedPredictions={data.initialSelectedPredictions}
-              onPredictionRemoved={handlePredictionRemoved}
-            />
-          </div>
-        </main>
-      </div>
-    </>
+    <div className="flex min-h-screen w-full flex-col">
+      <main className="flex-1 container mx-auto px-4 py-8 space-y-8">
+        <SummarySection effectiveness={data.stats.effectiveness} />
+        <div className="grid gap-6 md:grid-cols-2">
+          <Prediction initialMatches={availableMatches} />
+          <SelectedPredictions
+            initialSelectedPredictions={data.initialSelectedPredictions}
+            onPredictionRemoved={handlePredictionRemoved}
+          />
+        </div>
+      </main>
+    </div>
   );
 }

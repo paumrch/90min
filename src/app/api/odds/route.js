@@ -1,75 +1,29 @@
 import { NextResponse } from "next/server";
-import { fetchOddsData } from "@/app/utils/api";
-import mockData from "@/lib/data.json";
+import { query } from "@/lib/db";
 
 export async function GET() {
   console.log("GET /api/odds - Start");
   try {
-    console.log("Environment:", process.env.NODE_ENV);
-    console.log("Using mock data:", process.env.NEXT_PUBLIC_USE_MOCK_DATA);
-    console.log("API base URL:", process.env.NEXT_PUBLIC_API_BASE_URL);
-
-    let data;
-    if (process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true") {
-      console.log("Using mock data for odds");
-      data = mockData;
-    } else {
-      console.log("Fetching real data from API");
-      data = await fetchOddsData("soccer_spain_la_liga");
-    }
-
-    console.log(
-      "Raw data received:",
-      JSON.stringify(data).slice(0, 200) + "..."
+    const { rows } = await query(
+      `SELECT data FROM odds_cache 
+       ORDER BY created_at DESC 
+       LIMIT 1`
     );
 
-    if (!data || !Array.isArray(data)) {
-      console.error("Invalid data structure received:", data);
-      throw new Error("Invalid data received from API");
+    if (rows.length === 0) {
+      console.log("No odds data available");
+      return NextResponse.json([], { status: 200 });
     }
 
-    const filteredMatches = data
-      .filter((match) => {
-        const livescoreBet = match.bookmakers?.find(
-          (b) => b.key === "livescorebet_eu"
-        );
-        const totalsMarket = livescoreBet?.markets?.find(
-          (m) => m.key === "totals"
-        );
-        const overOdds = totalsMarket?.outcomes?.find(
-          (o) => o.name === "Over"
-        )?.price;
-        const underOdds = totalsMarket?.outcomes?.find(
-          (o) => o.name === "Under"
-        )?.price;
+    const oddsData = rows[0].data;
 
-        return overOdds && underOdds;
-      })
-      .map((match) => {
-        const livescoreBet = match.bookmakers.find(
-          (b) => b.key === "livescorebet_eu"
-        );
-        const totalsMarket = livescoreBet.markets.find(
-          (m) => m.key === "totals"
-        );
-        const overOdds = totalsMarket.outcomes.find(
-          (o) => o.name === "Over"
-        ).price;
-        const underOdds = totalsMarket.outcomes.find(
-          (o) => o.name === "Under"
-        ).price;
+    if (!Array.isArray(oddsData)) {
+      console.error("oddsData es inválido:", oddsData);
+      return NextResponse.json([], { status: 200 });
+    }
 
-        return {
-          ...match,
-          overOdds,
-          underOdds,
-        };
-      });
-
-    console.log("Filtered matches count:", filteredMatches.length);
-    console.log("First filtered match:", JSON.stringify(filteredMatches[0]));
-
-    return NextResponse.json(filteredMatches);
+    console.log("Returning odds data, count:", oddsData.length);
+    return NextResponse.json(oddsData);
   } catch (error) {
     console.error("Error in /api/odds:", error);
     return NextResponse.json(
@@ -78,5 +32,3 @@ export async function GET() {
     );
   }
 }
-
-export const revalidate = 86400;

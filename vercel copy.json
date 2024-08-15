@@ -1,0 +1,12 @@
+{
+  "crons": [
+    {
+      "path": "/api/cron/update-odds",
+      "schedule": "59 23 * * *"
+    },
+    {
+      "path": "/api/cron/update-results",
+      "schedule": "0 8,18 * * *"
+    }
+  ]
+}

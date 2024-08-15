@@ -25,9 +25,7 @@ export function SelectedPredictions({
   const { toast } = useToast();
 
   useEffect(() => {
-    if (initialSelectedPredictions.length === 0) {
-      fetchPredictions();
-    }
+    setSelectedPredictions(initialSelectedPredictions);
   }, [initialSelectedPredictions]);
 
   const fetchPredictions = async () => {

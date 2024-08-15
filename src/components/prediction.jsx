@@ -26,7 +26,11 @@ export function Prediction({ initialMatches }) {
 
   useEffect(() => {
     console.log("Prediction component - initialMatches:", initialMatches);
-    if (initialMatches && initialMatches.length > 0) {
+    if (
+      initialMatches &&
+      Array.isArray(initialMatches) &&
+      initialMatches.length > 0
+    ) {
       const uniqueMatches = initialMatches.reduce((acc, match) => {
         if (!acc.some((m) => m.id === match.id)) {
           acc.push(match);
@@ -38,13 +42,30 @@ export function Prediction({ initialMatches }) {
         (a, b) => new Date(a.commence_time) - new Date(b.commence_time)
       );
       setMatches(sortedMatches);
+      setIsLoading(false);
     } else {
       setError(
         "No se pudieron cargar los partidos. Por favor, intenta de nuevo más tarde."
       );
+      setIsLoading(false);
     }
-    setIsLoading(false);
   }, [initialMatches]);
+
+  const handlePredictionSelect = (matchId, prediction, odds) => {
+    setMatches((prevMatches) =>
+      prevMatches.map((match) =>
+        match.id === matchId
+          ? {
+              ...match,
+              selectedPrediction:
+                match.selectedPrediction === prediction ? null : prediction,
+              selectedOdds:
+                match.selectedPrediction === prediction ? null : odds,
+            }
+          : match
+      )
+    );
+  };
 
   const handlePublishPredictions = async () => {
     setIsPublishing(true);
