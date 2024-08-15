@@ -12,13 +12,13 @@ export function Footer() {
           </p>
           <nav className="flex gap-4">
             <Link
-              href="/privacy-policy"
+              href="/#"
               className="text-sm text-muted-foreground hover:underline"
             >
               Privacy Policy
             </Link>
             <Link
-              href="/legal-advice"
+              href="/#"
               className="text-sm text-muted-foreground hover:underline"
             >
               Legal Notice
