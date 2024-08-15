@@ -24,6 +24,7 @@ export async function GET() {
     );
 
     if (!data || !Array.isArray(data)) {
+      console.error("Invalid data structure received:", data);
       throw new Error("Invalid data received from API");
     }
 
@@ -71,7 +72,10 @@ export async function GET() {
     return NextResponse.json(filteredMatches);
   } catch (error) {
     console.error("Error in /api/odds:", error);
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return NextResponse.json(
+      { error: error.message, stack: error.stack },
+      { status: 500 }
+    );
   }
 }
 

@@ -12,6 +12,7 @@ export async function fetchOddsData() {
     const response = await fetch(url, {
       next: { revalidate: REVALIDATE_TIME },
     });
+    console.log("Response status:", response.status);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
@@ -33,6 +34,7 @@ export async function fetchScoresData() {
     const response = await fetch(url, {
       next: { revalidate: REVALIDATE_TIME },
     });
+    console.log("Response status:", response.status);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
