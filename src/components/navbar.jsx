@@ -39,35 +39,13 @@ export function Navbar() {
             <SheetTrigger asChild>
               <Button variant="outline" size="icon" className="md:hidden">
                 <Menu className="h-5 w-5" />
-                <span className="sr-only">Alternar menú de navegación</span>
+                <span className="sr-only">Change</span>
               </Button>
             </SheetTrigger>
             <SheetContent side="left">
-              <nav className="grid gap-6 text-lg font-medium">
-                <Link href="/" className="flex items-center gap-2">
-                  <Image
-                    src="/logoBlack.svg"
-                    alt="Acme Inc Logo (Light)"
-                    width={40}
-                    height={40}
-                    className="dark:hidden"
-                  />
-                  <Image
-                    src="/logoWhite.svg"
-                    alt="Acme Inc Logo (Dark)"
-                    width={40}
-                    height={40}
-                    className="hidden dark:block"
-                  />
-                </Link>
+              <nav className="hidden md:flex md:items-center md:gap-6">
                 <Link href="/" className="hover:text-foreground">
-                  Home
-                </Link>
-                <Link
-                  href="/dashboard"
-                  className="text-muted-foreground hover:text-foreground"
-                >
-                  Dashboard
+                  Matches
                 </Link>
               </nav>
             </SheetContent>
