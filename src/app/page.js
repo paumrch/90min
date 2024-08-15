@@ -1,3 +1,6 @@
+"use client";
+
+import { useState, useEffect } from "react";
 import { Upcoming } from "@/components/upcoming";
 import { Results } from "@/components/results";
 import { SummarySection } from "@/components/summary-card";
@@ -21,35 +24,76 @@ async function fetchData(endpoint) {
   }
 }
 
-export const dynamic = "force-dynamic";
+export default function Home() {
+  const [results, setResults] = useState([]);
+  const [upcomingMatches, setUpcomingMatches] = useState([]);
+  const [stats, setStats] = useState({
+    effectiveness: { percentage: 0, hits: 0, total: 0, profit: 0 },
+  });
 
-export default async function Home() {
-  const [results, upcomingMatches, stats] = await Promise.all([
-    fetchData("/api/results"),
-    fetchData("/api/upcoming"),
-    fetchData("/api/stats"),
-  ]);
+  useEffect(() => {
+    async function loadData() {
+      const [fetchedResults, fetchedUpcoming, fetchedStats] = await Promise.all(
+        [
+          fetchData("/api/results"),
+          fetchData("/api/upcoming"),
+          fetchData("/api/stats"),
+        ]
+      );
 
-  const effectiveness = stats?.effectiveness || {
-    percentage: 0,
-    hits: 0,
-    total: 0,
-    profit: 0,
+      setResults(fetchedResults || []);
+      setUpcomingMatches(fetchedUpcoming || []);
+      setStats(
+        fetchedStats || {
+          effectiveness: { percentage: 0, hits: 0, total: 0, profit: 0 },
+        }
+      );
+    }
+
+    loadData();
+  }, []);
+
+  const filteredUpcoming = upcomingMatches.filter(
+    (upcomingMatch) => !results.some((result) => result.id === upcomingMatch.id)
+  );
+
+  const handlePredictionRemoved = async (removedPrediction) => {
+    // Actualizar upcomingMatches
+    setUpcomingMatches((prevUpcoming) => [...prevUpcoming, removedPrediction]);
+
+    // Actualizar stats (esto es una aproximación, idealmente deberías re-fetch las stats)
+    setStats((prevStats) => ({
+      ...prevStats,
+      effectiveness: {
+        ...prevStats.effectiveness,
+        total: prevStats.effectiveness.total - 1,
+      },
+    }));
+
+    // Re-fetch de los datos para asegurar sincronización
+    const [fetchedUpcoming, fetchedStats] = await Promise.all([
+      fetchData("/api/upcoming"),
+      fetchData("/api/stats"),
+    ]);
+
+    setUpcomingMatches(fetchedUpcoming || []);
+    setStats(
+      fetchedStats || {
+        effectiveness: { percentage: 0, hits: 0, total: 0, profit: 0 },
+      }
+    );
   };
-
-  const filteredUpcoming =
-    upcomingMatches?.filter(
-      (upcomingMatch) =>
-        !results?.some((result) => result.id === upcomingMatch.id)
-    ) || [];
 
   return (
     <div className="flex min-h-screen w-full flex-col">
       <main className="flex-1 container mx-auto px-4 py-8 space-y-8">
-        <SummarySection effectiveness={effectiveness} />
+        <SummarySection effectiveness={stats.effectiveness} />
         <div className="grid gap-6 md:grid-cols-2">
-          <Upcoming initialUpcoming={filteredUpcoming} />
-          <Results initialResults={results || []} />
+          <Upcoming
+            initialUpcoming={filteredUpcoming}
+            onPredictionRemoved={handlePredictionRemoved}
+          />
+          <Results initialResults={results} />
         </div>
       </main>
     </div>

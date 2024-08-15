@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server";
 import { query } from "@/lib/db";
-import { getScores } from "@/lib/response";
+import { fetchScoresData } from "@/app/utils/api";
 
 export async function GET() {
   try {
-    const scoresData = getScores();
+    const scoresData = await fetchScoresData();
 
     const { rows: upcomingMatches } = await query(
       `SELECT * FROM matches WHERE status = 'upcoming'`
@@ -49,3 +49,5 @@ export async function GET() {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
+
+export const revalidate = 86400; 
