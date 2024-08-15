@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import { fetchScoresData } from "@/app/utils/api";
-import mockScores from '@/lib/scores.json';
 
 export async function GET() {
   try {
