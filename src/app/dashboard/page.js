@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Head from "next/head";
 import { Prediction } from "@/components/prediction";
 import { SummarySection } from "@/components/summary-card";
 import { SelectedPredictions } from "@/components/selected";
@@ -154,17 +155,22 @@ export default function Dashboard() {
   );
 
   return (
-    <div className="flex min-h-screen w-full flex-col">
-      <main className="flex-1 container mx-auto px-4 py-8 space-y-8">
-        <SummarySection effectiveness={data.stats.effectiveness} />
-        <div className="grid gap-6 md:grid-cols-2">
-          <Prediction initialMatches={availableMatches} />
-          <SelectedPredictions
-            initialSelectedPredictions={data.initialSelectedPredictions}
-            onPredictionRemoved={handlePredictionRemoved}
-          />
-        </div>
-      </main>
-    </div>
+    <>
+      <Head>
+        <meta name="robots" content="noindex, nofollow" />
+      </Head>
+      <div className="flex min-h-screen w-full flex-col">
+        <main className="flex-1 container mx-auto px-4 py-8 space-y-8">
+          <SummarySection effectiveness={data.stats.effectiveness} />
+          <div className="grid gap-6 md:grid-cols-2">
+            <Prediction initialMatches={availableMatches} />
+            <SelectedPredictions
+              initialSelectedPredictions={data.initialSelectedPredictions}
+              onPredictionRemoved={handlePredictionRemoved}
+            />
+          </div>
+        </main>
+      </div>
+    </>
   );
 }
