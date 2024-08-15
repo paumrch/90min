@@ -1,4 +1,5 @@
-// layout.js
+import { Analytics } from "@vercel/analytics/react";
+
 import { ThemeProvider } from "@/components/theme-provider";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
@@ -17,6 +18,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={figtree.className}>
+        <Analytics />
         <ThemeProvider
           attribute="class"
           defaultTheme="light"

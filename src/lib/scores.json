@@ -66,7 +66,7 @@
     "scores": [
       {
         "name": "Las Palmas",
-        "score": "1"
+        "score": "4"
       },
       {
         "name": "Sevilla",
@@ -89,7 +89,7 @@
       },
       {
         "name": "Leganés",
-        "score": "1"
+        "score": "5"
       }
     ],
     "last_update": "2024-08-12T17:16:40Z"
@@ -108,7 +108,7 @@
       },
       {
         "name": "Barcelona",
-        "score": "5"
+        "score": "3"
       }
     ],
     "last_update": "2024-08-12T17:16:40Z"

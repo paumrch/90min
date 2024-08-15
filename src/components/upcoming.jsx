@@ -26,7 +26,7 @@ export function Upcoming({ initialUpcoming }) {
 
   useEffect(() => {
     const validMatches = initialUpcoming.filter(
-      (match) => match.prediction && match.prediction !== "ANULADA"
+      (match) => match.prediction && match.prediction !== "VOID"
     );
     setUpcomingMatches(validMatches);
   }, [initialUpcoming]);
@@ -48,7 +48,7 @@ export function Upcoming({ initialUpcoming }) {
     const month = (date.getMonth() + 1).toString().padStart(2, "0");
     const hours = date.getHours().toString().padStart(2, "0");
     const minutes = date.getMinutes().toString().padStart(2, "0");
-    return `${day}/${month}. ${hours}:${minutes}h`;
+    return `${day}/${month} ${hours}:${minutes}`;
   };
 
   return (
@@ -57,29 +57,29 @@ export function Upcoming({ initialUpcoming }) {
         <div>
           <CardTitle className="text-2xl font-bold">Upcoming</CardTitle>
           <CardDescription className="text-sm text-muted-foreground mt-1">
-            Próximos partidos.
+            Upcoming matches with predictions.
           </CardDescription>
         </div>
-        <Button asChild size="sm" className="gap-1">
+        {/* <Button asChild size="sm" className="gap-1">
           <Link href="#">
-            Ver todos
+            View all
             <ArrowUpRight className="h-4 w-4" />
           </Link>
-        </Button>
+        </Button> */}
       </CardHeader>
       <CardContent>
         {upcomingMatches.length === 0 ? (
-          <p>No hay partidos próximos con predicciones.</p>
+          <p>No upcoming matches with predictions.</p>
         ) : (
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead className="font-semibold w-1/2">Partido</TableHead>
+                <TableHead className="font-semibold w-1/2">Match</TableHead>
                 <TableHead className="font-semibold w-1/4 text-right">
-                  Predicción
+                  Prediction
                 </TableHead>
                 <TableHead className="font-semibold w-1/4 text-right">
-                  Cuota
+                  Odds
                 </TableHead>
               </TableRow>
             </TableHeader>

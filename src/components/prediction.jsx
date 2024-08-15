@@ -53,7 +53,7 @@ export function Prediction({ initialMatches }) {
       if (predictionsArray.length === 0) {
         toast({
           title: "Error",
-          description: "No has seleccionado ninguna predicción.",
+          description: "You haven't selected any predictions.",
           variant: "destructive",
         });
         setIsPublishing(false);
@@ -70,14 +70,14 @@ export function Prediction({ initialMatches }) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      await new Promise((resolve) => setTimeout(resolve, 1000)); // Espera mínima de 1 segundo
+      await new Promise((resolve) => setTimeout(resolve, 1000)); // Minimum wait of 1 second
 
       const result = await response.json();
       console.log("API Response:", result);
 
       toast({
-        title: "Éxito",
-        description: "Las predicciones se han publicado correctamente.",
+        title: "Success",
+        description: "Predictions have been published successfully.",
         variant: "default",
       });
 
@@ -89,11 +89,10 @@ export function Prediction({ initialMatches }) {
         );
       }, 1000);
     } catch (err) {
-      console.error("Error al publicar predicciones:", err);
+      console.error("Error publishing predictions:", err);
       toast({
         title: "Error",
-        description:
-          "No se pudieron publicar las predicciones. Por favor, intenta de nuevo.",
+        description: "Failed to publish predictions. Please try again.",
         variant: "destructive",
       });
     } finally {
@@ -104,17 +103,17 @@ export function Prediction({ initialMatches }) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Próximos Partidos</CardTitle>
+        <CardTitle>Upcoming Matches</CardTitle>
       </CardHeader>
       <CardContent>
         {matches.length === 0 ? (
-          <p>No hay partidos disponibles.</p>
+          <p>No matches available.</p>
         ) : (
           <>
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead className="w-1/2">Partido</TableHead>
+                  <TableHead className="w-1/2">Match</TableHead>
                   <TableHead className="w-1/4 text-center">Over 2.5</TableHead>
                   <TableHead className="w-1/4 text-center">Under 2.5</TableHead>
                 </TableRow>
@@ -173,10 +172,10 @@ export function Prediction({ initialMatches }) {
                   className="w-full"
                 >
                   {isPublishing
-                    ? "Publicando..."
+                    ? "Publishing..."
                     : isPublished
-                    ? "Publicado"
-                    : "Publicar"}
+                    ? "Published"
+                    : "Publish"}
                 </Button>
               </div>
             </div>

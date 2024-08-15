@@ -1,12 +1,12 @@
-import { Activity } from "lucide-react";
-import { Card, CardHeader, CardContent, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Target, TrendingUp, DollarSign } from "lucide-react";
 
-function SummaryCard({ title, value, description }) {
+function SummaryCard({ title, value, description, icon: Icon }) {
   return (
-    <Card>
+    <Card className="bg-card text-card-foreground shadow-sm">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
         <CardTitle className="text-sm font-medium">{title}</CardTitle>
-        <Activity className="h-4 w-4 text-muted-foreground" />
+        <Icon className="h-4 w-4 text-muted-foreground" />
       </CardHeader>
       <CardContent>
         <div className="text-2xl font-bold">{value}</div>
@@ -16,20 +16,29 @@ function SummaryCard({ title, value, description }) {
   );
 }
 
-export function SummarySection() {
+export function SummarySection({ effectiveness }) {
+  const { percentage, hits, total, profit } = effectiveness;
+
   return (
-    <div className="grid gap-6 md:grid-cols-3">
+    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
       <SummaryCard
-        title="Últimos 7 Días"
-        value="70%"
-        description="de acierto"
+        title="Effectiveness"
+        value={`${percentage.toFixed(2)}%`}
+        description={`${hits} hits out of ${total} predictions`}
+        icon={Target}
       />
       <SummaryCard
-        title="Últimos 30 Días"
-        value="65%"
-        description="de acierto"
+        title="Total Predictions"
+        value={total}
+        description="Completed predictions"
+        icon={TrendingUp}
       />
-      <SummaryCard title="Total" value="68%" description="de acierto global" />
+      <SummaryCard
+        title="Total Profit"
+        value={`€${profit.toFixed(2)}`}
+        description="Accumulated profit"
+        icon={DollarSign}
+      />
     </div>
   );
 }

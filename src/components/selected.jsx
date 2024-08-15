@@ -42,7 +42,7 @@ export function SelectedPredictions({
       console.error("Error fetching predictions:", error);
       toast({
         title: "Error",
-        description: "No se pudieron cargar las predicciones.",
+        description: "Failed to load predictions.",
         variant: "destructive",
       });
     }
@@ -56,12 +56,12 @@ export function SelectedPredictions({
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.error || "Error al anular la predicción");
+        throw new Error(errorData.error || "Error voiding the prediction");
       }
 
       toast({
-        title: "Éxito",
-        description: "La predicción se ha anulado correctamente.",
+        title: "Success",
+        description: "The prediction has been voided successfully.",
         variant: "default",
       });
 
@@ -73,12 +73,11 @@ export function SelectedPredictions({
         onPredictionRemoved(prediction);
       }
     } catch (err) {
-      console.error("Error al anular la predicción:", err);
+      console.error("Error voiding the prediction:", err);
       toast({
         title: "Error",
         description:
-          err.message ||
-          "No se pudo anular la predicción. Por favor, intenta de nuevo.",
+          err.message || "Failed to void the prediction. Please try again.",
         variant: "destructive",
       });
     }
@@ -88,10 +87,10 @@ export function SelectedPredictions({
     return (
       <Card>
         <CardHeader>
-          <CardTitle>Predicciones Seleccionadas</CardTitle>
+          <CardTitle>Selected Predictions</CardTitle>
         </CardHeader>
         <CardContent>
-          <p>No hay predicciones seleccionadas.</p>
+          <p>No predictions selected.</p>
         </CardContent>
       </Card>
     );
@@ -100,16 +99,16 @@ export function SelectedPredictions({
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Predicciones Seleccionadas</CardTitle>
+        <CardTitle>Selected Predictions</CardTitle>
       </CardHeader>
       <CardContent>
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Partido</TableHead>
-              <TableHead className="text-right">Predicción</TableHead>
-              <TableHead className="text-right">Cuota</TableHead>
-              <TableHead className="text-right">Eliminar</TableHead>
+              <TableHead>Match</TableHead>
+              <TableHead className="text-right">Prediction</TableHead>
+              <TableHead className="text-right">Odds</TableHead>
+              <TableHead className="text-right">Remove</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>

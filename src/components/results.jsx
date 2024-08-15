@@ -18,7 +18,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-
 import Link from "next/link";
 
 export function Results({ initialResults }) {
@@ -26,7 +25,7 @@ export function Results({ initialResults }) {
 
   useEffect(() => {
     const validResults = initialResults.filter(
-      (result) => result.prediction && result.prediction !== "ANULADA"
+      (result) => result.prediction && result.prediction !== "VOID"
     );
     setResults(validResults);
   }, [initialResults]);
@@ -35,28 +34,24 @@ export function Results({ initialResults }) {
     <Card className="h-full">
       <CardHeader className="flex flex-row items-center justify-between">
         <div>
-          <CardTitle className="text-2xl font-bold">
-            Últimos resultados
-          </CardTitle>
+          <CardTitle className="text-2xl font-bold">Latest Results</CardTitle>
           <CardDescription className="text-sm text-muted-foreground mt-1">
-            Resultados.
+            Recent match outcomes.
           </CardDescription>
         </div>
-        <Button asChild size="sm" className="gap-1">
+        {/* <Button asChild size="sm" className="gap-1">
           <Link href="#">
-            Ver todos
+            View all
             <ArrowUpRight className="h-4 w-4" />
           </Link>
-        </Button>
+        </Button> */}
       </CardHeader>
       <CardContent>
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead className="w-[60%] font-semibold">Partido</TableHead>
-              <TableHead className="text-right font-semibold">
-                Resultado
-              </TableHead>
+              <TableHead className="w-[60%] font-semibold">Match</TableHead>
+              <TableHead className="text-right font-semibold">Result</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>

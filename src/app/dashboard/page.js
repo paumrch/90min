@@ -1,25 +1,20 @@
-import { SummarySection } from "@/components/summary-card";
 import { Prediction } from "@/components/prediction";
+import { SummarySection } from "@/components/summary-card";
 import { SelectedPredictions } from "@/components/selected";
 import { API_BASE_URL } from "@/app/utils/config";
 
 async function fetchData(endpoint) {
-  const url = `${API_BASE_URL}${endpoint}`;
-
   try {
-    const res = await fetch(url, {
+    const res = await fetch(`${API_BASE_URL}${endpoint}`, {
       cache: "no-store",
       headers: {
         Accept: "application/json",
       },
     });
-
     if (!res.ok) {
       throw new Error(`HTTP error! status: ${res.status}`);
     }
-
-    const data = await res.json();
-    return data;
+    return res.json();
   } catch (error) {
     console.error(`Error fetching ${endpoint}:`, error);
     return null;
@@ -29,23 +24,22 @@ async function fetchData(endpoint) {
 export const dynamic = "force-dynamic";
 
 export default async function Dashboard() {
-  const initialMatches = (await fetchData("/api/odds")) || [];
-  const initialSelectedPredictions =
-    (await fetchData("/api/predictions")) || [];
+  const [initialMatches, stats, initialSelectedPredictions] = await Promise.all([
+    fetchData("/api/odds"),
+    fetchData("/api/stats"),
+    fetchData("/api/predictions"),
+  ]);
 
-  const availableMatches = initialMatches.filter(
-    (match) =>
-      !initialSelectedPredictions.some((pred) => pred.api_id === match.id)
-  );
+  const effectiveness = stats?.effectiveness || { percentage: 0, hits: 0, total: 0, profit: 0 };
 
   return (
     <div className="flex min-h-screen w-full flex-col">
       <main className="flex-1 container mx-auto px-4 py-8 space-y-8">
-        <SummarySection />
-        <Prediction initialMatches={availableMatches} />
-        <SelectedPredictions
-          initialSelectedPredictions={initialSelectedPredictions}
-        />
+        <SummarySection effectiveness={effectiveness} />
+        <div className="grid gap-6 md:grid-cols-2">
+          <Prediction initialMatches={initialMatches || []} />
+          <SelectedPredictions initialSelectedPredictions={initialSelectedPredictions || []} />
+        </div>
       </main>
     </div>
   );
