@@ -1,36 +1,30 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# ⚽ 90 Minutes - La Liga Predictions
 
-## Getting Started
+**90 Minutes** is your go-to app for accurate predictions in the Over and Under markets of the Spanish La Liga for the 2024-2025 season. Specializing in total goals predictions, this app provides expert insights for every match, helping users make informed decisions.
 
-First, run the development server:
+## 🌟 Key Features
+
+- **Specialized Predictions:** Focused on Over and Under markets in the Spanish La Liga.
+- **Detailed Analysis:** Projections based on team statistics and performance.
+- **Frequent Updates:** Always up-to-date information with new predictions as the season progresses.
+
+## 🚀 Tech Stack
+
+- **Frontend:** [Next.js 14](https://nextjs.org/)
+- **Styling:** CSS Modules, Tailwind CSS (optional)
+- **Server-Side Rendering (SSR):** For faster rendering and SEO optimization.
+- **Match Data and Odds API:** Integration with an external API for precise data.
+- **Smart Caching:** Reduces API calls to optimize performance.
+
+## 📂 Project Structure
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+├── /app
+│   ├── /components     # Reusable components
+│   ├── /pages          # Application pages
+│   ├── /styles         # CSS files
+│   └── /utils          # Utility functions
+├── /public             # Static files (images, fonts)
+├── /data               # Mock JSONs for local development
+├── /api                # API calls and caching functions
+└── README.md
