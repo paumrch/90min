@@ -6,9 +6,14 @@ export async function GET() {
   try {
     let data;
     if (process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true") {
+      console.log("Using mock data for odds");
       data = mockData;
     } else {
       data = await fetchOddsData("soccer_spain_la_liga");
+    }
+
+    if (!data || !Array.isArray(data)) {
+      throw new Error("Invalid data received from API");
     }
 
     const filteredMatches = data
@@ -49,6 +54,10 @@ export async function GET() {
         };
       });
 
+    console.log("Environment:", process.env.NODE_ENV);
+    console.log("Using mock data:", process.env.NEXT_PUBLIC_USE_MOCK_DATA);
+    console.log("API base URL:", process.env.NEXT_PUBLIC_API_BASE_URL);
+    console.log("Filtered matches:", filteredMatches);
     return NextResponse.json(filteredMatches);
   } catch (error) {
     console.error("Error fetching odds data:", error);

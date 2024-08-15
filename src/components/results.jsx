@@ -18,7 +18,10 @@ import {
 
 export function Results({ initialResults }) {
   const results = initialResults.filter(
-    (result) => result.prediction && result.prediction !== "VOID"
+    (result) =>
+      result.prediction &&
+      result.prediction !== "VOID" &&
+      result.status === "completed"
   );
 
   return (
