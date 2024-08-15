@@ -37,12 +37,18 @@ export default async function Home() {
     profit: 0,
   };
 
+  const filteredUpcoming =
+    upcomingMatches?.filter(
+      (upcomingMatch) =>
+        !results?.some((result) => result.id === upcomingMatch.id)
+    ) || [];
+
   return (
     <div className="flex min-h-screen w-full flex-col">
       <main className="flex-1 container mx-auto px-4 py-8 space-y-8">
         <SummarySection effectiveness={effectiveness} />
         <div className="grid gap-6 md:grid-cols-2">
-          <Upcoming initialUpcoming={upcomingMatches || []} />
+          <Upcoming initialUpcoming={filteredUpcoming} />
           <Results initialResults={results || []} />
         </div>
       </main>

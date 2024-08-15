@@ -23,7 +23,17 @@ export function Prediction({ initialMatches }) {
 
   useEffect(() => {
     if (initialMatches && initialMatches.length > 0) {
-      setMatches(initialMatches);
+      const uniqueMatches = initialMatches.reduce((acc, match) => {
+        if (!acc.some((m) => m.id === match.id)) {
+          acc.push(match);
+        }
+        return acc;
+      }, []);
+
+      const sortedMatches = uniqueMatches.sort(
+        (a, b) => new Date(a.commence_time) - new Date(b.commence_time)
+      );
+      setMatches(sortedMatches);
     }
     setIsLoading(false);
   }, [initialMatches]);
@@ -109,6 +119,15 @@ export function Prediction({ initialMatches }) {
     }
   };
 
+  const formatDateTime = (dateTimeString) => {
+    const date = new Date(dateTimeString);
+    const day = date.getDate().toString().padStart(2, "0");
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const hours = date.getHours().toString().padStart(2, "0");
+    const minutes = date.getMinutes().toString().padStart(2, "0");
+    return `${day}/${month} ${hours}:${minutes}`;
+  };
+
   return (
     <Card>
       <CardHeader>
@@ -126,15 +145,24 @@ export function Prediction({ initialMatches }) {
             <Table>
               <TableHeader>
                 <TableRow>
-                  <TableHead className="w-1/2">Match</TableHead>
-                  <TableHead className="w-1/4 text-center">Over 2.5</TableHead>
-                  <TableHead className="w-1/4 text-center">Under 2.5</TableHead>
+                  <TableHead className="w-full lg:w-1/2">Match</TableHead>
+                  <TableHead className="text-center w-1/2 lg:w-1/4">
+                    Over 2.5
+                  </TableHead>
+                  <TableHead className="text-center w-1/2 lg:w-1/4">
+                    Under 2.5
+                  </TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
                 {matches.map((match) => (
                   <TableRow key={match.id}>
-                    <TableCell>{`${match.home_team} vs ${match.away_team}`}</TableCell>
+                    <TableCell>
+                      <div className="font-medium">{`${match.home_team} vs ${match.away_team}`}</div>
+                      <div className="text-sm text-muted-foreground">
+                        {formatDateTime(match.commence_time)}
+                      </div>
+                    </TableCell>
                     <TableCell>
                       <Button
                         onClick={() =>
@@ -178,7 +206,7 @@ export function Prediction({ initialMatches }) {
               </TableBody>
             </Table>
             <div className="flex justify-end mt-4">
-              <div className="w-1/4">
+              <div className="w-full">
                 <Button
                   onClick={handlePublishPredictions}
                   disabled={isPublishing || isPublished}

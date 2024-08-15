@@ -1,8 +1,5 @@
-"use client";
-
-import React, { useState, useEffect } from "react";
-import { ArrowUpRight, CheckCircle2, XCircle } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import React from "react";
+import { CheckCircle2, XCircle } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -18,17 +15,11 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import Link from "next/link";
 
 export function Results({ initialResults }) {
-  const [results, setResults] = useState(initialResults);
-
-  useEffect(() => {
-    const validResults = initialResults.filter(
-      (result) => result.prediction && result.prediction !== "VOID"
-    );
-    setResults(validResults);
-  }, [initialResults]);
+  const results = initialResults.filter(
+    (result) => result.prediction && result.prediction !== "VOID"
+  );
 
   return (
     <Card className="h-full">
@@ -39,12 +30,6 @@ export function Results({ initialResults }) {
             Recent match outcomes.
           </CardDescription>
         </div>
-        {/* <Button asChild size="sm" className="gap-1">
-          <Link href="#">
-            View all
-            <ArrowUpRight className="h-4 w-4" />
-          </Link>
-        </Button> */}
       </CardHeader>
       <CardContent>
         <Table>

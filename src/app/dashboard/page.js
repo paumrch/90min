@@ -77,7 +77,19 @@ export default function Dashboard() {
           fetch("/api/predictions").then((res) => res.json()),
         ]);
 
-      setData({ initialMatches, stats, initialSelectedPredictions });
+      // Filtrar partidos duplicados
+      const uniqueMatches = initialMatches.reduce((acc, match) => {
+        if (!acc.some((m) => m.id === match.id)) {
+          acc.push(match);
+        }
+        return acc;
+      }, []);
+
+      setData({
+        initialMatches: uniqueMatches,
+        stats,
+        initialSelectedPredictions,
+      });
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
@@ -88,6 +100,36 @@ export default function Dashboard() {
   const handleLogin = () => {
     setIsAuthenticated(true);
     localStorage.setItem("dashboardAuth", "true");
+  };
+
+  const handlePredictionRemoved = (removedPrediction) => {
+    setData((prevData) => {
+      // Encuentra el partido original en initialMatches
+      const originalMatch = prevData.initialMatches.find(
+        (match) => match.id === removedPrediction.api_id
+      );
+
+      let updatedInitialMatches = prevData.initialMatches;
+
+      if (originalMatch) {
+        // Si el partido ya existe en initialMatches, no lo añadimos de nuevo
+        if (
+          !prevData.initialMatches.some(
+            (match) => match.id === originalMatch.id
+          )
+        ) {
+          updatedInitialMatches = [...prevData.initialMatches, originalMatch];
+        }
+      }
+
+      return {
+        ...prevData,
+        initialMatches: updatedInitialMatches,
+        initialSelectedPredictions: prevData.initialSelectedPredictions.filter(
+          (pred) => pred.id !== removedPrediction.id
+        ),
+      };
+    });
   };
 
   if (!isAuthenticated) {
@@ -106,14 +148,20 @@ export default function Dashboard() {
     );
   }
 
+  const availableMatches = data.initialMatches.filter(
+    (match) =>
+      !data.initialSelectedPredictions.some((pred) => pred.api_id === match.id)
+  );
+
   return (
     <div className="flex min-h-screen w-full flex-col">
       <main className="flex-1 container mx-auto px-4 py-8 space-y-8">
         <SummarySection effectiveness={data.stats.effectiveness} />
         <div className="grid gap-6 md:grid-cols-2">
-          <Prediction initialMatches={data.initialMatches} />
+          <Prediction initialMatches={availableMatches} />
           <SelectedPredictions
             initialSelectedPredictions={data.initialSelectedPredictions}
+            onPredictionRemoved={handlePredictionRemoved}
           />
         </div>
       </main>

@@ -1,9 +1,4 @@
-"use client";
-
-import React, { useState, useEffect } from "react";
-import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import React from "react";
 import {
   Card,
   CardContent,
@@ -21,35 +16,30 @@ import {
 } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 
+const formatOdds = (odds) => {
+  if (typeof odds === "number") {
+    return odds.toFixed(2);
+  }
+  if (typeof odds === "string") {
+    const num = parseFloat(odds);
+    return isNaN(num) ? "N/A" : num.toFixed(2);
+  }
+  return "N/A";
+};
+
+const formatDate = (dateString) => {
+  const date = new Date(dateString);
+  const day = date.getDate().toString().padStart(2, "0");
+  const month = (date.getMonth() + 1).toString().padStart(2, "0");
+  const hours = date.getHours().toString().padStart(2, "0");
+  const minutes = date.getMinutes().toString().padStart(2, "0");
+  return `${day}/${month} ${hours}:${minutes}`;
+};
+
 export function Upcoming({ initialUpcoming }) {
-  const [upcomingMatches, setUpcomingMatches] = useState(initialUpcoming);
-
-  useEffect(() => {
-    const validMatches = initialUpcoming.filter(
-      (match) => match.prediction && match.prediction !== "VOID"
-    );
-    setUpcomingMatches(validMatches);
-  }, [initialUpcoming]);
-
-  const formatOdds = (odds) => {
-    if (typeof odds === "number") {
-      return odds.toFixed(2);
-    }
-    if (typeof odds === "string") {
-      const num = parseFloat(odds);
-      return isNaN(num) ? "N/A" : num.toFixed(2);
-    }
-    return "N/A";
-  };
-
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    const day = date.getDate().toString().padStart(2, "0");
-    const month = (date.getMonth() + 1).toString().padStart(2, "0");
-    const hours = date.getHours().toString().padStart(2, "0");
-    const minutes = date.getMinutes().toString().padStart(2, "0");
-    return `${day}/${month} ${hours}:${minutes}`;
-  };
+  const upcomingMatches = initialUpcoming.filter(
+    (match) => match.prediction && match.prediction !== "VOID"
+  );
 
   return (
     <Card className="h-full">
@@ -60,12 +50,6 @@ export function Upcoming({ initialUpcoming }) {
             Upcoming matches with predictions.
           </CardDescription>
         </div>
-        {/* <Button asChild size="sm" className="gap-1">
-          <Link href="#">
-            View all
-            <ArrowUpRight className="h-4 w-4" />
-          </Link>
-        </Button> */}
       </CardHeader>
       <CardContent>
         {upcomingMatches.length === 0 ? (
