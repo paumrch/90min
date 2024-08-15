@@ -1,7 +1,5 @@
 # ⚽ 90 Minutes - La Liga Predictions
 
-![90 Minutes Logo](https://90minutes.xyz/featuredOG90Minutes.png)
-
 **90 Minutes** is your go-to app for accurate predictions in the Over and Under markets of the Spanish La Liga for the 2024-2025 season. Specializing in total goals predictions, this app provides expert insights for every match, helping users make informed decisions.
 
 ## 🌟 Key Features
