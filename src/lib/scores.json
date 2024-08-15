@@ -1,43 +1,5 @@
 [
   {
-    "id": "38629fa92cde8ab93e560ce6f466e675",
-    "sport_key": "soccer_spain_la_liga",
-    "sport_title": "La Liga - Spain",
-    "commence_time": "2024-08-15T17:00:00Z",
-    "home_team": "Athletic Bilbao",
-    "away_team": "Getafe",
-    "scores": [
-      {
-        "name": "Athletic Bilbao",
-        "score": "1"
-      },
-      {
-        "name": "Getafe",
-        "score": "2"
-      }
-    ],
-    "last_update": "2024-08-12T17:16:40Z"
-  },
-  {
-    "id": "efc7d96ae3cf68744c1aaeb8e0f748f6",
-    "sport_key": "soccer_spain_la_liga",
-    "sport_title": "La Liga - Spain",
-    "commence_time": "2024-08-15T19:30:00Z",
-    "home_team": "Real Betis",
-    "away_team":"Real Betis",
-    "scores": [
-      {
-        "name": "Real Betis",
-        "score": "1"
-      },
-      {
-        "name": "Real Betis",
-        "score": "1"
-      }
-    ],
-    "last_update": "2024-08-12T17:16:40Z"
-  },
-  {
     "id": "0c15bbf0c68e6c649776fde31365e164",
     "sport_key": "soccer_spain_la_liga",
     "sport_title": "La Liga - Spain",

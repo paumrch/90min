@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useState, useEffect } from "react";
 import {
   Card,
   CardContent,
@@ -37,7 +39,13 @@ const formatDate = (dateString) => {
 };
 
 export function Upcoming({ initialUpcoming }) {
-  const upcomingMatches = initialUpcoming.filter(
+  const [upcomingMatches, setUpcomingMatches] = useState(initialUpcoming);
+
+  useEffect(() => {
+    setUpcomingMatches(initialUpcoming);
+  }, [initialUpcoming]);
+
+  const filteredMatches = upcomingMatches.filter(
     (match) => match.prediction && match.prediction !== "VOID"
   );
 
@@ -52,7 +60,7 @@ export function Upcoming({ initialUpcoming }) {
         </div>
       </CardHeader>
       <CardContent>
-        {upcomingMatches.length === 0 ? (
+        {filteredMatches.length === 0 ? (
           <p>No upcoming matches with predictions.</p>
         ) : (
           <Table>
@@ -68,7 +76,7 @@ export function Upcoming({ initialUpcoming }) {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {upcomingMatches.map((match) => (
+              {filteredMatches.map((match) => (
                 <TableRow key={match.id}>
                   <TableCell>
                     <div className="font-medium">{`${match.home_team} vs ${match.away_team}`}</div>

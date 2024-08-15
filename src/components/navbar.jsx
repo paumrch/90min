@@ -17,14 +17,14 @@ export function Navbar() {
           <Link href="/" className="flex items-center gap-2">
             <Image
               src="/logoBlack.svg"
-              alt="Acme Inc Logo (Light)"
+              alt="90 Minutes"
               width={40}
               height={40}
               className="dark:hidden"
             />
             <Image
               src="/logoWhite.svg"
-              alt="Acme Inc Logo (Dark)"
+              alt="90 Minutes"
               width={40}
               height={40}
               className="hidden dark:block"
@@ -32,13 +32,7 @@ export function Navbar() {
           </Link>
           <nav className="hidden md:flex md:items-center md:gap-6">
             <Link href="/" className="hover:text-foreground">
-              Home
-            </Link>
-            <Link
-              href="/dashboard"
-              className="text-muted-foreground hover:text-foreground"
-            >
-              Dashboard
+              Matches
             </Link>
           </nav>
           <Sheet>

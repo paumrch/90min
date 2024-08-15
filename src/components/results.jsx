@@ -32,36 +32,42 @@ export function Results({ initialResults }) {
         </div>
       </CardHeader>
       <CardContent>
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead className="w-[60%] font-semibold">Match</TableHead>
-              <TableHead className="text-right font-semibold">Result</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {results.map((match) => (
-              <TableRow key={match.id}>
-                <TableCell>
-                  <div className="font-medium">{`${match.home_team} vs ${match.away_team}`}</div>
-                  <div className="text-sm text-muted-foreground mt-1">
-                    {`${match.prediction} @ ${match.odds}`}
-                  </div>
-                </TableCell>
-                <TableCell className="text-right">
-                  <div className="flex items-center justify-end gap-2">
-                    <span className="font-medium">{`${match.home_goals} - ${match.away_goals}`}</span>
-                    {match.result === "correct" ? (
-                      <CheckCircle2 className="h-5 w-5 text-green-500" />
-                    ) : (
-                      <XCircle className="h-5 w-5 text-red-500" />
-                    )}
-                  </div>
-                </TableCell>
+        {results.length === 0 ? (
+          <p>No results available.</p>
+        ) : (
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead className="w-[60%] font-semibold">Match</TableHead>
+                <TableHead className="text-right font-semibold">
+                  Result
+                </TableHead>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+            </TableHeader>
+            <TableBody>
+              {results.map((match) => (
+                <TableRow key={match.id}>
+                  <TableCell>
+                    <div className="font-medium">{`${match.home_team} vs ${match.away_team}`}</div>
+                    <div className="text-sm text-muted-foreground mt-1">
+                      {`${match.prediction} @ ${match.odds}`}
+                    </div>
+                  </TableCell>
+                  <TableCell className="text-right">
+                    <div className="flex items-center justify-end gap-2">
+                      <span className="font-medium">{`${match.home_goals} - ${match.away_goals}`}</span>
+                      {match.result === "correct" ? (
+                        <CheckCircle2 className="h-5 w-5 text-green-500" />
+                      ) : (
+                        <XCircle className="h-5 w-5 text-red-500" />
+                      )}
+                    </div>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        )}
       </CardContent>
     </Card>
   );

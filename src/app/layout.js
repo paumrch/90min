@@ -21,7 +21,7 @@ export default function RootLayout({ children }) {
         <Analytics />
         <ThemeProvider
           attribute="class"
-          defaultTheme="light"
+          defaultTheme="dark"
           enableSystem
           disableTransitionOnChange
         >
