@@ -26,26 +26,21 @@ export async function fetchOddsData() {
 }
 
 export async function fetchScoresData() {
-  console.log("fetchScoresData - Start");
-  const url = `${API_BASE_URL}/api/scores`;
-  console.log("Fetching from URL:", url);
+  const API_KEY = process.env.SCORES_API_KEY;
+  const SPORT = "soccer_spain_la_liga";
 
-  try {
-    const response = await fetch(url, {
-      next: { revalidate: REVALIDATE_TIME },
-    });
-    console.log("Response status:", response.status);
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    const data = await response.json();
-    console.log(
-      "Scores data received:",
-      JSON.stringify(data).slice(0, 200) + "..."
-    );
-    return data;
-  } catch (error) {
-    console.error("Error fetching scores data:", error);
-    throw error;
+  console.log(`Fetching scores for ${SPORT}`);
+
+  const response = await fetch(
+    `https://api.the-odds-api.com/v4/sports/${SPORT}/scores/?apiKey=${API_KEY}&daysFrom=1`
+  );
+
+  if (!response.ok) {
+    throw new Error(`API responded with status: ${response.status}`);
   }
+
+  const data = await response.json();
+  console.log(`Received ${data.length} scores from API`);
+  console.log("Sample data structure:", JSON.stringify(data[0], null, 2));
+  return data;
 }

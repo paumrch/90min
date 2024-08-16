@@ -1,40 +1,51 @@
 import { NextResponse } from "next/server";
 import { query } from "@/lib/db";
+import { fetchScoresData } from "@/app/utils/api";
 
-export async function GET() {
-  console.log("Cron job: Updating results");
+export const runtime = "edge"; // Opcional: usa el runtime de Edge para mejor rendimiento
+
+export async function GET(request) {
+  console.log("Cron job: Updating results - Start");
   try {
-    // Actualiza el estado de los partidos a 'completed' si han pasado más de 2 horas desde su inicio
-    const { rows: updatedMatches } = await query(
-      `UPDATE matches
-       SET status = 'completed'
-       WHERE status = 'upcoming' AND commence_time < NOW() - INTERVAL '2 hours'
-       RETURNING *`
+    const { rows: pendingMatches } = await query(
+      `SELECT id, api_id, home_team, away_team, start_time, prediction
+       FROM matches
+       WHERE status = 'upcoming' AND start_time < NOW() - INTERVAL '2 hours'`
     );
 
-    // Aquí podrías agregar lógica adicional para obtener los resultados reales
-    // de los partidos completados, por ejemplo, haciendo una llamada a una API de resultados
-
-    // Por ahora, simplemente simularemos resultados aleatorios para los partidos completados
-    for (const match of updatedMatches) {
-      const homeGoals = Math.floor(Math.random() * 5);
-      const awayGoals = Math.floor(Math.random() * 5);
-      const totalGoals = homeGoals + awayGoals;
-      const result = totalGoals > 2.5 ? "Over 2.5" : "Under 2.5";
-      const isCorrect = result === match.prediction;
-
-      await query(
-        `UPDATE matches
-         SET home_goals = $1, away_goals = $2, result = $3, is_correct = $4
-         WHERE id = $5`,
-        [homeGoals, awayGoals, result, isCorrect, match.id]
-      );
+    if (pendingMatches.length === 0) {
+      return NextResponse.json({
+        success: true,
+        message: "No matches to update",
+      });
     }
 
-    return NextResponse.json({
-      success: true,
-      matchesUpdated: updatedMatches.length,
-    });
+    const scoresData = await fetchScoresData();
+
+    let updatedCount = 0;
+
+    for (const match of pendingMatches) {
+      const scoreInfo = scoresData.find((score) => score.id === match.api_id);
+
+      if (scoreInfo && scoreInfo.completed) {
+        const homeGoals = scoreInfo.scores.home;
+        const awayGoals = scoreInfo.scores.away;
+        const totalGoals = homeGoals + awayGoals;
+        const result = totalGoals > 2.5 ? "Over 2.5" : "Under 2.5";
+        const isCorrect = result === match.prediction;
+
+        await query(
+          `UPDATE matches
+           SET status = 'completed', home_goals = $1, away_goals = $2, result = $3, is_correct = $4
+           WHERE id = $5`,
+          [homeGoals, awayGoals, result, isCorrect, match.id]
+        );
+
+        updatedCount++;
+      }
+    }
+
+    return NextResponse.json({ success: true, matchesUpdated: updatedCount });
   } catch (error) {
     console.error("Error updating results:", error);
     return NextResponse.json({ error: error.message }, { status: 500 });
