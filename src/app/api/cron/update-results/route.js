@@ -2,10 +2,7 @@ import { NextResponse } from "next/server";
 import { query } from "@/lib/db";
 import { fetchScoresData } from "@/app/utils/api";
 
-export const runtime = "edge"; // Opcional: usa el runtime de Edge para mejor rendimiento
-
 export async function GET(request) {
-  console.log("Cron job: Updating results - Start");
   try {
     const { rows: pendingMatches } = await query(
       `SELECT id, api_id, home_team, away_team, start_time, prediction

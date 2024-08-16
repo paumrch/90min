@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 import { query } from "@/lib/db";
 
 export async function GET() {
-  console.log("GET /api/odds - Start");
   try {
     const { rows } = await query(
       `SELECT data FROM odds_cache 
@@ -22,7 +21,6 @@ export async function GET() {
       return NextResponse.json([], { status: 200 });
     }
 
-    console.log("Returning odds data, count:", oddsData.length);
     return NextResponse.json(oddsData);
   } catch (error) {
     console.error("Error in /api/odds:", error);

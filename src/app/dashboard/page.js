@@ -105,7 +105,6 @@ export default function Dashboard() {
       }
 
       if (typeof stats !== "object" || !stats.effectiveness) {
-        console.error("Stats es inválido:", stats);
         throw new Error("Estructura de datos de stats inválida.");
       }
 
@@ -118,13 +117,6 @@ export default function Dashboard() {
           "La API no devolvió un array para initialSelectedPredictions."
         );
       }
-
-      console.log("Fetched initial matches:", initialMatches);
-      console.log("Fetched stats:", stats);
-      console.log(
-        "Fetched initial selected predictions:",
-        initialSelectedPredictions
-      );
 
       const uniqueMatches = initialMatches.reduce((acc, match) => {
         if (!acc.some((m) => m.id === match.id)) {

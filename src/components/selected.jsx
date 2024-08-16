@@ -20,12 +20,20 @@ export function SelectedPredictions({
   onPredictionRemoved,
 }) {
   const [selectedPredictions, setSelectedPredictions] = useState(
-    initialSelectedPredictions
+    initialSelectedPredictions.filter(
+      (pred) =>
+        pred.status !== "completed" && new Date(pred.start_time) > new Date()
+    )
   );
   const { toast } = useToast();
 
   useEffect(() => {
-    setSelectedPredictions(initialSelectedPredictions);
+    setSelectedPredictions(
+      initialSelectedPredictions.filter(
+        (pred) =>
+          pred.status !== "completed" && new Date(pred.start_time) > new Date()
+      )
+    );
   }, [initialSelectedPredictions]);
 
   const fetchPredictions = async () => {
@@ -88,7 +96,7 @@ export function SelectedPredictions({
           <CardTitle>Selected Predictions</CardTitle>
         </CardHeader>
         <CardContent>
-          <p>No predictions selected.</p>
+          <p>No upcoming predictions selected.</p>
         </CardContent>
       </Card>
     );

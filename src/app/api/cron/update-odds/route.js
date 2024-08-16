@@ -7,7 +7,6 @@ const REGION = "eu";
 const MARKET = "totals";
 
 export async function GET() {
-  console.log("Cron job: Updating odds");
   try {
     const response = await fetch(
       `https://api.the-odds-api.com/v4/sports/${SPORT}/odds/?apiKey=${API_KEY}&regions=${REGION}&markets=${MARKET}`

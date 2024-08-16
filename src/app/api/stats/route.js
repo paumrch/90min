@@ -2,10 +2,8 @@ import { NextResponse } from "next/server";
 import { query } from "@/lib/db";
 
 export async function GET() {
-  console.log("GET /api/stats - Start");
   try {
     const result = await query("SELECT * FROM calculate_stats()");
-    console.log("Stats retrieved:", result.rows[0]);
 
     const stats = result.rows[0];
     const effectiveness = {
@@ -14,8 +12,6 @@ export async function GET() {
       total: parseInt(stats.total_predictions),
       profit: parseFloat(stats.total_profit),
     };
-
-    console.log("Processed stats:", effectiveness);
 
     return NextResponse.json({ effectiveness });
   } catch (error) {
