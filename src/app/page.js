@@ -16,11 +16,14 @@ async function fetchData(endpoint) {
 }
 
 export default async function Home() {
+  console.log("Home page - Fetching data");
   const [results, upcomingMatches, stats] = await Promise.all([
     fetchData("/api/results"),
     fetchData("/api/upcoming"),
     fetchData("/api/stats"),
   ]);
+
+  console.log("Home page - Upcoming matches:", upcomingMatches);
 
   return (
     <div className="flex min-h-screen w-full flex-col">

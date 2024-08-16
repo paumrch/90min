@@ -39,16 +39,21 @@ const formatDate = (dateString) => {
 };
 
 export function Upcoming({ initialUpcoming }) {
+  console.log("Upcoming component - initialUpcoming:", initialUpcoming);
+
   const [upcomingMatches, setUpcomingMatches] = useState(initialUpcoming);
 
   useEffect(() => {
+    console.log("Upcoming component - useEffect triggered");
     setUpcomingMatches(initialUpcoming);
   }, [initialUpcoming]);
 
   const filteredMatches = initialUpcoming.filter(
     (match) => match.prediction && match.prediction !== "VOID"
   );
-  
+
+  console.log("Upcoming component - filteredMatches:", filteredMatches);
+
   return (
     <Card className="h-full">
       <CardHeader className="flex flex-row items-center justify-between">
