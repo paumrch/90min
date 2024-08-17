@@ -1,15 +1,16 @@
 import { NextResponse } from "next/server";
 
+const allowedOrigins = new Set([
+  "https://www.90minutes.xyz",
+  "https://90minutes.xyz",
+  "https://90min-delta.vercel.app",
+]);
+
 export function middleware(request) {
   const response = NextResponse.next();
   const origin = request.headers.get("origin");
-  const allowedOrigins = [
-    "https://www.90minutes.xyz",
-    "https://90minutes.xyz",
-    "https://90min-delta.vercel.app/",
-  ];
 
-  if (origin && allowedOrigins.includes(origin)) {
+  if (origin && allowedOrigins.has(origin)) {
     response.headers.set("Access-Control-Allow-Origin", origin);
   }
 

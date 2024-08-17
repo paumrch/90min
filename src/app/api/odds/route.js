@@ -14,12 +14,15 @@ export async function GET() {
       return NextResponse.json([], { status: 200 });
     }
 
-    const oddsData = rows[0].data;
+    let oddsData = rows[0].data;
 
     if (!Array.isArray(oddsData)) {
       console.error("oddsData es inválido:", oddsData);
       return NextResponse.json([], { status: 200 });
     }
+
+    const now = new Date();
+    oddsData = oddsData.filter((match) => new Date(match.commence_time) > now);
 
     return NextResponse.json(oddsData);
   } catch (error) {

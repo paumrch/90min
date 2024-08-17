@@ -31,8 +31,12 @@ export function Prediction({ initialMatches }) {
       Array.isArray(initialMatches) &&
       initialMatches.length > 0
     ) {
+      const now = new Date();
       const uniqueMatches = initialMatches.reduce((acc, match) => {
-        if (!acc.some((m) => m.id === match.id)) {
+        if (
+          !acc.some((m) => m.id === match.id) &&
+          new Date(match.commence_time) > now
+        ) {
           acc.push(match);
         }
         return acc;
@@ -144,7 +148,7 @@ export function Prediction({ initialMatches }) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Upcoming Matches</CardTitle>
+        <CardTitle>Odds</CardTitle>
       </CardHeader>
       <CardContent>
         {isLoading ? (

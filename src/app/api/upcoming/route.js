@@ -7,12 +7,14 @@ export async function GET() {
     const { rows } = await query(
       `SELECT id, api_id, home_team, away_team, start_time, league, prediction, odds
        FROM matches
-       WHERE status = 'upcoming'
+       WHERE status = 'upcoming' AND start_time > NOW()
        ORDER BY start_time ASC`
     );
 
     console.log(`Retrieved ${rows.length} upcoming matches`);
-    console.log("First match:", JSON.stringify(rows[0]));
+    if (rows.length > 0) {
+      console.log("First match:", JSON.stringify(rows[0]));
+    }
 
     return NextResponse.json(rows);
   } catch (error) {

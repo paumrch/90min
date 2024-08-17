@@ -1,0 +1,62 @@
+src
+├── app
+│   ├── api
+│   │   ├── cron
+│   │   │   ├── update-odds
+│   │   │   │   └── route.js
+│   │   │   └── update-results
+│   │   │       └── route.js
+│   │   ├── odds
+│   │   │   └── route.js
+│   │   ├── predictions
+│   │   │   ├── [id]
+│   │   │   │   └── route.js
+│   │   │   └── route.js
+│   │   ├── results
+│   │   │   └── route.js
+│   │   ├── scores
+│   │   │   └── route.js
+│   │   ├── stats
+│   │   │   └── route.js
+│   │   └── upcoming
+│   │       └── route.js
+│   ├── dashboard
+│   │   └── page.js
+│   ├── favicon.ico
+│   ├── globals.css
+│   ├── layout.js
+│   ├── page.js
+│   ├── robots.txt
+│   ├── sitemap.xml
+│   └── utils
+│       └── api.js
+├── components
+│   ├── footer.jsx
+│   ├── login.jsx
+│   ├── navbar.jsx
+│   ├── prediction.jsx
+│   ├── results.jsx
+│   ├── selected.jsx
+│   ├── summary-card.jsx
+│   ├── theme-provider.jsx
+│   ├── ui
+│   │   ├── alert.jsx
+│   │   ├── avatar.jsx
+│   │   ├── badge.jsx
+│   │   ├── button.jsx
+│   │   ├── card.jsx
+│   │   ├── dropdown-menu.jsx
+│   │   ├── input.jsx
+│   │   ├── select.jsx
+│   │   ├── sheet.jsx
+│   │   ├── table.jsx
+│   │   ├── toast.jsx
+│   │   ├── toaster.jsx
+│   │   └── use-toast.js
+│   └── upcoming.jsx
+├── lib
+│   ├── db.js
+│   └── utils.js
+└── middleware.js
+
+18 directories, 42 files
