@@ -25,10 +25,17 @@ export async function fetchOddsData() {
 
 export async function fetchScoresData() {
   const API_KEY = process.env.SCORES_API_KEY;
+  if (!API_KEY) {
+    console.error("SCORES_API_KEY no está definida");
+    throw new Error("API key no configurada");
+  }
+
   const SPORT = "soccer_spain_la_liga";
   const url = `https://api.the-odds-api.com/v4/sports/${SPORT}/scores/?apiKey=${API_KEY}&daysFrom=3`;
 
-  console.log(`Iniciando fetchScoresData. URL: ${url}`);
+  console.log(
+    `Iniciando fetchScoresData. URL: ${url.replace(API_KEY, "HIDDEN_KEY")}`
+  );
   try {
     const response = await fetch(url);
     console.log("Respuesta recibida. Estado:", response.status);
