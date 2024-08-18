@@ -1,35 +1,40 @@
 import { NextResponse } from "next/server";
 import { query } from "@/lib/db";
 import { fetchScoresData } from "@/app/utils/api";
+import { processMatchData } from "@/lib/matchUtils";
 
 export async function GET(request) {
+  console.log("Iniciando actualización de resultados");
   try {
-    const { rows: pendingMatches } = await query(
-      `SELECT id, api_id, home_team, away_team, start_time, prediction
-       FROM matches
-       WHERE status = 'upcoming' AND start_time < NOW() - INTERVAL '2 hours'`
+    const scoresData = await fetchScoresData();
+    console.log(
+      `Obtenidos datos de puntuación para ${scoresData.length} partidos`
     );
 
-    if (pendingMatches.length === 0) {
-      return NextResponse.json({
-        success: true,
-        message: "No matches to update",
-      });
-    }
-
-    const scoresData = await fetchScoresData();
+    const { rows: matches } = await query(
+      `SELECT id, api_id, home_team, away_team, start_time, prediction, status
+       FROM matches
+       WHERE start_time < NOW() - INTERVAL '3 hours' AND status != 'completed'`
+    );
 
     let updatedCount = 0;
 
-    for (const match of pendingMatches) {
-      const scoreInfo = scoresData.find((score) => score.id === match.api_id);
+    for (const match of matches) {
+      const scoreInfo = scoresData.find(
+        (score) =>
+          score.home_team === match.home_team &&
+          score.away_team === match.away_team
+      );
 
       if (scoreInfo && scoreInfo.completed) {
-        const homeGoals = scoreInfo.scores.home;
-        const awayGoals = scoreInfo.scores.away;
-        const totalGoals = homeGoals + awayGoals;
-        const result = totalGoals > 2.5 ? "Over 2.5" : "Under 2.5";
-        const isCorrect = result === match.prediction;
+        console.log(
+          `Procesando partido: ${match.home_team} vs ${match.away_team}`
+        );
+
+        const processedData = processMatchData(match, scoreInfo);
+        if (!processedData) continue;
+
+        const { homeGoals, awayGoals, result, isCorrect } = processedData;
 
         await query(
           `UPDATE matches
@@ -39,12 +44,22 @@ export async function GET(request) {
         );
 
         updatedCount++;
+        console.log(
+          `Partido actualizado: ${match.home_team} ${homeGoals} - ${awayGoals} ${match.away_team}, Resultado: ${result}, Predicción correcta: ${isCorrect}`
+        );
+      } else {
+        console.log(
+          `El partido ${match.home_team} vs ${match.away_team} aún no ha finalizado o no se encontró información`
+        );
       }
     }
 
+    console.log(
+      `Actualización completada. ${updatedCount} partidos actualizados`
+    );
     return NextResponse.json({ success: true, matchesUpdated: updatedCount });
   } catch (error) {
-    console.error("Error updating results:", error);
+    console.error("Error al actualizar resultados:", error);
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }

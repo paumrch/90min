@@ -12,18 +12,20 @@ async function fetchData(endpoint) {
   if (!res.ok) {
     throw new Error(`HTTP error! status: ${res.status}`);
   }
-  return res.json();
+  const data = await res.json();
+  console.log(`Data fetched from ${endpoint}:`, data);
+  return data;
 }
 
 export default async function Home() {
   console.log("Home page - Fetching data");
   const [results, upcomingMatches, stats] = await Promise.all([
-    fetchData("/api/results"),
-    fetchData("/api/upcoming"),
-    fetchData("/api/stats"),
+    fetchData("/api/results", { cache: 'no-store' }),
+    fetchData("/api/upcoming", { cache: 'no-store' }),
+    fetchData("/api/stats", { cache: 'no-store' }),
   ]);
 
-  console.log("Home page - Upcoming matches:", upcomingMatches);
+  console.log("Home page - Results:", results);
 
   return (
     <div className="flex min-h-screen w-full flex-col">

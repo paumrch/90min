@@ -8,6 +8,8 @@ export async function GET() {
               home_goals, away_goals, result, is_correct, status
        FROM matches 
        WHERE status = 'completed' 
+         AND prediction IS NOT NULL 
+         AND prediction != 'VOID'
        ORDER BY commence_time DESC 
        LIMIT 10`
     );
