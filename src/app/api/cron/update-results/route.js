@@ -9,7 +9,7 @@ export async function GET(request) {
   try {
     const scoresData = await fetchScoresData();
     console.log(
-      `Datos de puntuación obtenidos para ${scoresData.length} partidos`
+      `Datos de puntuación obtenidos para ${scoresData.length} partidos.`
     );
 
     const { rows: matches } = await query(
