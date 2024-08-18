@@ -2,6 +2,8 @@ import { Upcoming } from "@/components/upcoming";
 import { Results } from "@/components/results";
 import { SummarySection } from "@/components/summary-card";
 import Hero from "@/components/homepage/hero";
+import Testimonials from "@/components/homepage/testimonial";
+import Features from "@/components/homepage/features";
 
 async function fetchData(endpoint) {
   console.log(
@@ -45,6 +47,8 @@ export default async function Home() {
     <div className="flex min-h-screen w-full flex-col">
       <main className="flex-1 container mx-auto px-4 py-8 space-y-8">
         <Hero />
+        <Features />
+        <Testimonials />
         <SummarySection effectiveness={stats.effectiveness} />
         <div className="grid gap-6 md:grid-cols-2">
           <Upcoming initialUpcoming={upcomingMatches} />

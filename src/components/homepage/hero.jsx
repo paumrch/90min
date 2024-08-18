@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -23,18 +24,23 @@ const Hero = () => {
           </h1>
         </CardTitle>
         <CardDescription className="text-lg md:text-xl text-center max-w-3xl mx-auto">
-          Unlock the Power of Precision: Where Data Meets Passion, and Every
-          Prediction Counts. Your Winning Streak Starts Here!
+          Unlock the power of precision. Where data meets passion and every
+          prediction matters. Your winning streak begins here.
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-16">
         <div className="space-y-8">
           <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-            <Button size="lg" className="text-base">View predictions</Button>
-            <Button size="lg" variant="outline" className="text-base">
-              Go to Telegram <ArrowRight className="ml-2 h-4 w-4" />
+            <Button size="lg" className="text-base">
+              View predictions
             </Button>
+            <Link href="#" passHref>
+              <Button size="lg" variant="outline" className="text-base">
+                Go to Telegram <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </Link>
           </div>
+
           <div className="flex flex-col items-center space-y-4">
             <div className="flex items-center space-x-4">
               <div className="flex -space-x-4 overflow-hidden">
@@ -48,7 +54,10 @@ const Hero = () => {
                   </Avatar>
                 ))}
               </div>
-              <Badge variant="secondary" className="px-2 py-1 text-sm flex items-center">
+              <Badge
+                variant="secondary"
+                className="px-2 py-1 text-sm flex items-center"
+              >
                 <Star className="h-4 w-4 text-yellow-400 fill-current mr-1" />
                 <span className="font-semibold">Verified Odds</span>
               </Badge>
@@ -58,28 +67,28 @@ const Hero = () => {
             </span>
           </div>
         </div>
-        
-        <div className="space-y-4">
+
+        <div className="space-y-2">
           <p className="text-lg md:text-xl text-center text-muted-foreground">
             Specialists in the World&apos;s Best Leagues
           </p>
-          <div className="flex justify-center space-x-8">
-            <div className="w-24 h-24 flex items-center justify-center">
+          <div className="flex justify-center mx-auto space-x-8 items-center">
+            <div className="relative w-24 h-auto">
               <Image
                 src="/LALIGA_EA_SPORTS_h_RGB_monocromatico_negativo.png"
                 alt="La Liga"
-                width={96}
-                height={96}
-                style={{ objectFit: "contain" }}
+                width={4126}
+                height={1001}
+                quality={100}
               />
             </div>
-            <div className="w-72 h-24 flex items-center justify-center">
+            <div className="relative w-72 h-auto">
               <Image
                 src="/LALIGA_HYPERMOTION_RGB_h_monocromatico_negativo.png"
                 alt="La Liga 2"
-                width={288}
-                height={96}
-                style={{ objectFit: "contain" }}
+                width={9168}
+                height={1112}
+                quality={100}
               />
             </div>
           </div>
