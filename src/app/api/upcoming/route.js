@@ -7,7 +7,7 @@ export async function GET() {
     const { rows } = await query(
       `SELECT id, api_id, home_team, away_team, start_time, league, prediction, odds
        FROM matches
-       WHERE status = 'upcoming' AND start_time > NOW()
+       WHERE status = 'upcoming' AND start_time > NOW() - INTERVAL '2 hours'
        ORDER BY start_time ASC`
     );
 
