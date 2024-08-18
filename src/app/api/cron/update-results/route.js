@@ -4,11 +4,12 @@ import { fetchScoresData } from "@/app/utils/api";
 import { processMatchData } from "@/lib/matchUtils";
 
 export async function GET(request) {
-  console.log("Iniciando actualización de resultados");
+  console.log(`Cron job ejecutado: ${new Date().toISOString()}`);
+
   try {
     const scoresData = await fetchScoresData();
     console.log(
-      `Obtenidos datos de puntuación para ${scoresData.length} partidos`
+      `Datos de puntuación obtenidos para ${scoresData.length} partidos`
     );
 
     const { rows: matches } = await query(
@@ -16,6 +17,7 @@ export async function GET(request) {
        FROM matches
        WHERE start_time < NOW() - INTERVAL '3 hours' AND status != 'completed'`
     );
+    console.log(`Encontrados ${matches.length} partidos para actualizar`);
 
     let updatedCount = 0;
 
@@ -27,10 +29,6 @@ export async function GET(request) {
       );
 
       if (scoreInfo && scoreInfo.completed) {
-        console.log(
-          `Procesando partido: ${match.home_team} vs ${match.away_team}`
-        );
-
         const processedData = processMatchData(match, scoreInfo);
         if (!processedData) continue;
 
@@ -44,13 +42,6 @@ export async function GET(request) {
         );
 
         updatedCount++;
-        console.log(
-          `Partido actualizado: ${match.home_team} ${homeGoals} - ${awayGoals} ${match.away_team}, Resultado: ${result}, Predicción correcta: ${isCorrect}`
-        );
-      } else {
-        console.log(
-          `El partido ${match.home_team} vs ${match.away_team} aún no ha finalizado o no se encontró información`
-        );
       }
     }
 
@@ -59,7 +50,7 @@ export async function GET(request) {
     );
     return NextResponse.json({ success: true, matchesUpdated: updatedCount });
   } catch (error) {
-    console.error("Error al actualizar resultados:", error);
+    console.error("Error en la ejecución del cron job:", error);
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
