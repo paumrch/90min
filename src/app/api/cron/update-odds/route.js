@@ -7,21 +7,36 @@ const REGION = "eu";
 const MARKET = "totals";
 
 export async function GET() {
+  console.log(
+    `Cron job de actualización de cuotas ejecutado: ${new Date().toISOString()}`
+  );
+
   try {
-    const response = await fetch(
-      `https://api.the-odds-api.com/v4/sports/${SPORT}/odds/?apiKey=${API_KEY}&regions=${REGION}&markets=${MARKET}`
+    if (!API_KEY) {
+      console.error("ODDS_API_KEY no está definida");
+      throw new Error("API key no configurada");
+    }
+
+    const url = `https://api.the-odds-api.com/v4/sports/${SPORT}/odds/?apiKey=${API_KEY}&regions=${REGION}&markets=${MARKET}`;
+    console.log(
+      `Iniciando fetchOddsData. URL: ${url.replace(API_KEY, "HIDDEN_KEY")}`
     );
 
+    const response = await fetch(url);
+    console.log("Respuesta recibida. Estado:", response.status);
+
     if (!response.ok) {
-      throw new Error(`API responded with status: ${response.status}`);
+      throw new Error(`API respondió con estado: ${response.status}`);
     }
 
     const data = await response.json();
 
     if (!data || !Array.isArray(data)) {
-      console.error("Invalid data structure received:", data);
-      throw new Error("Invalid data received from API");
+      console.error("Estructura de datos inválida recibida:", data);
+      throw new Error("Datos inválidos recibidos de la API");
     }
+
+    console.log(`Datos de cuotas recibidos para ${data.length} partidos`);
 
     const filteredMatches = data
       .filter((match) => {
@@ -66,18 +81,22 @@ export async function GET() {
         };
       });
 
+    console.log(`Cuotas filtradas para ${filteredMatches.length} partidos`);
+
     await query(
       `INSERT INTO odds_cache (data, created_at) VALUES ($1, NOW())
        ON CONFLICT (id) DO UPDATE SET data = $1, created_at = NOW()`,
       [JSON.stringify(filteredMatches)]
     );
 
+    console.log("Cuotas actualizadas en la base de datos");
+
     return NextResponse.json({
       success: true,
       matchesUpdated: filteredMatches.length,
     });
   } catch (error) {
-    console.error("Error updating odds:", error);
+    console.error("Error al actualizar cuotas:", error);
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }

@@ -2,7 +2,7 @@
   "crons": [
     {
       "path": "/api/cron/update-odds",
-      "schedule": "59 23 * * *"
+      "schedule": "* * * * *"
     },
     {
       "path": "/api/cron/update-results",

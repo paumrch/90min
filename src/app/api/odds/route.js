@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { query } from "@/lib/db";
 
 export async function GET() {
+  console.log("Solicitud de cuotas recibida");
+
   try {
     const { rows } = await query(
       `SELECT data FROM odds_cache 
@@ -10,7 +12,7 @@ export async function GET() {
     );
 
     if (rows.length === 0) {
-      console.log("No odds data available");
+      console.log("No hay datos de cuotas disponibles");
       return NextResponse.json([], { status: 200 });
     }
 
@@ -21,12 +23,18 @@ export async function GET() {
       return NextResponse.json([], { status: 200 });
     }
 
+    console.log(`Datos de cuotas recuperados para ${oddsData.length} partidos`);
+
     const now = new Date();
     oddsData = oddsData.filter((match) => new Date(match.commence_time) > now);
 
+    console.log(
+      `${oddsData.length} partidos con cuotas después de filtrar por fecha`
+    );
+
     return NextResponse.json(oddsData);
   } catch (error) {
-    console.error("Error in /api/odds:", error);
+    console.error("Error en /api/odds:", error);
     return NextResponse.json(
       { error: error.message, stack: error.stack },
       { status: 500 }
