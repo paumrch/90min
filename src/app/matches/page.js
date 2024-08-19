@@ -1,9 +1,6 @@
 import { Upcoming } from "@/components/upcoming";
 import { Results } from "@/components/results";
 import { SummarySection } from "@/components/summary-card";
-import Hero from "@/components/homepage/hero";
-import Testimonials from "@/components/homepage/testimonials";
-import Features from "@/components/homepage/features";
 
 async function fetchData(endpoint) {
   console.log(

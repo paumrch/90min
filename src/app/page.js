@@ -1,8 +1,8 @@
 import Hero from "@/components/homepage/hero";
 import Features from "@/components/homepage/features";
 import Testimonials from "@/components/homepage/testimonials";
-import FAQs from "@/components/homepage/FAQs";
-import CTA from "@/components/homepage/CTA";
+import FAQs from "@/components/homepage/faqs";
+import CTA from "@/components/homepage/cta";
 
 export default function Home() {
   return (
