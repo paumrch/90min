@@ -13,7 +13,7 @@ export async function GET(request) {
     );
 
     const { rows: matches } = await query(
-      `SELECT id, api_id, home_team, away_team, start_time, prediction, status
+      `SELECT id, api_id, home_team, away_team, start_time, prediction, odds, status
        FROM matches
        WHERE start_time < NOW() - INTERVAL '3 hours' AND status != 'completed'`
     );
@@ -22,15 +22,14 @@ export async function GET(request) {
     let updatedCount = 0;
 
     for (const match of matches) {
-      const scoreInfo = scoresData.find(
-        (score) =>
-          score.home_team === match.home_team &&
-          score.away_team === match.away_team
-      );
+      const scoreInfo = scoresData.find((score) => score.id === match.api_id);
 
       if (scoreInfo && scoreInfo.completed) {
         const processedData = processMatchData(match, scoreInfo);
-        if (!processedData) continue;
+        if (!processedData) {
+          console.log(`No se pudo procesar el partido con ID: ${match.id}`);
+          continue;
+        }
 
         const { homeGoals, awayGoals, result, isCorrect } = processedData;
 
@@ -42,6 +41,7 @@ export async function GET(request) {
         );
 
         updatedCount++;
+        console.log(`Actualizado partido con ID: ${match.id}`);
       }
     }
 
