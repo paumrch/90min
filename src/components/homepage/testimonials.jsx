@@ -16,7 +16,7 @@ const TestimonialCard = ({ name, avatar, country, content }) => (
       </div>
     </CardHeader>
     <CardContent className="flex-grow">
-      <p>&ldquo;{content}&rdquo;</p>
+      <p className="text-muted-foreground">{content}</p>
     </CardContent>
   </Card>
 );
@@ -68,7 +68,7 @@ const Testimonials = () => {
   ];
 
   return (
-    <section className="py-16">
+    <section>
       <div className="container mx-auto px-4">
         <h2 className="text-3xl font-bold text-center mb-4">
           What Our Users Say

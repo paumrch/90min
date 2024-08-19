@@ -31,7 +31,7 @@ export function Navbar() {
             />
           </Link>
           <nav className="hidden md:flex md:items-center md:gap-6">
-            <Link href="/" className="hover:text-foreground">
+            <Link href="/matches" className="hover:text-foreground">
               Matches
             </Link>
           </nav>
@@ -44,7 +44,7 @@ export function Navbar() {
             </SheetTrigger>
             <SheetContent side="left">
               <nav className="hidden md:flex md:items-center md:gap-6">
-                <Link href="/" className="hover:text-foreground">
+                <Link href="/matches" className="hover:text-foreground">
                   Matches
                 </Link>
               </nav>

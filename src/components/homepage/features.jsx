@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { TrendingUp, Target, Shield, Zap } from "lucide-react";
@@ -45,7 +46,7 @@ const Features = () => {
   ];
 
   return (
-    <section className="py-16">
+    <section>
       <div className="container mx-auto px-4">
         <h2 className="text-3xl font-bold text-center mb-4">
           Unlock Your Betting Potential
@@ -59,25 +60,42 @@ const Features = () => {
             <FeatureCard key={index} {...feature} />
           ))}
         </div>
-        <div className="mt-16 flex flex-col items-center -space-y-2">
-          <div className="flex -space-x-4 overflow-hidden">
-            {[1, 2, 3, 4].map((i) => (
-              <Avatar
-                key={i}
-                className="inline-block h-10 w-10 rounded-full ring-2 ring-background"
-              >
-                <AvatarImage src={`/avatar${i}.png`} alt={`User ${i}`} />
-                <AvatarFallback>U{i}</AvatarFallback>
-              </Avatar>
-            ))}
-          </div>
-          <Badge variant="secondary" className="text-lg px-4 py-2">
-            Join 10,000+ winning bettors today!
-          </Badge>
-        </div>
+        <CallToAction />
       </div>
       <Separator className="mt-16" />
     </section>
+  );
+};
+
+const CallToAction = () => (
+  <div className="mt-16 flex flex-col items-center -space-y-2">
+    <AvatarGroup />
+    <Link href="https://t.me/ninetyminutesxyz" passHref>
+      <Badge
+        variant="secondary"
+        className="text-lg px-4 py-2"
+      >
+        Join 10,000+ winning bettors today!
+      </Badge>
+    </Link>
+  </div>
+);
+
+const AvatarGroup = () => {
+  const avatars = [1, 2, 3, 4];
+
+  return (
+    <div className="flex -space-x-4 overflow-hidden">
+      {avatars.map((i) => (
+        <Avatar
+          key={i}
+          className="inline-block h-10 w-10 rounded-full ring-2 ring-background"
+        >
+          <AvatarImage src={`/avatar${i}.png`} alt={`User ${i}`} />
+          <AvatarFallback>U{i}</AvatarFallback>
+        </Avatar>
+      ))}
+    </div>
   );
 };
 
