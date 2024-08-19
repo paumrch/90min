@@ -46,7 +46,7 @@ const FAQs = () => {
     {
       question: "Do you offer customer support?",
       answer:
-        "Yes, we offer 24/7 customer support. You can contact us through our live chat, email, or via our Telegram channel for any questions or assistance you might need.",
+        "Yes, we offer 24/7 customer support and you can contact us through our live chat, email, or via our Telegram channel for any questions or assistance you might need.",
     },
   ];
 
